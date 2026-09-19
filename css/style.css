@@ -61,18 +61,6 @@ body {
 }
 
 
-.svg-library {
-
-  position: absolute;
-
-  width: 0;
-  height: 0;
-
-  overflow: hidden;
-
-}
-
-
 /* =========================================================
    VIEWPORT
 ========================================================= */
@@ -189,10 +177,6 @@ body {
 }
 
 
-/* =========================================================
-   POSITIONS GAUCHE
-========================================================= */
-
 .info-group--callsign {
   left: 0;
 }
@@ -202,10 +186,6 @@ body {
   left: 290px;
 }
 
-
-/* =========================================================
-   POSITIONS DROITE
-========================================================= */
 
 .info-group--phase {
   right: 290px;
@@ -219,8 +199,6 @@ body {
 
 /* =========================================================
    INFO TAG
-
-   Dégradé bleu avec effet de volume
 ========================================================= */
 
 .info-tag {
@@ -238,10 +216,14 @@ body {
   width: 180px;
   height: 37px;
 
-  flex: 0 0 180px;
+  flex:
+    0 0 180px;
 
   padding:
     0 15px;
+
+  color:
+    white;
 
   background:
     linear-gradient(
@@ -256,14 +238,11 @@ body {
     inset 0 1px 0 rgb(255 255 255 / 25%),
     inset 0 -2px 0 rgb(0 0 0 / 10%);
 
-  color:
-    white;
-
 }
 
 
 /* =========================================================
-   TAGS GAUCHE
+   INFO TAG — LEFT
 ========================================================= */
 
 .info-tag--callsign,
@@ -281,7 +260,7 @@ body {
 
 
 /* =========================================================
-   TAGS DROITE
+   INFO TAG — RIGHT
 ========================================================= */
 
 .info-tag--phase,
@@ -315,7 +294,8 @@ body {
   width: 110px;
   height: 37px;
 
-  flex: 0 0 110px;
+  flex:
+    0 0 110px;
 
   padding:
     0 10px;
@@ -323,15 +303,14 @@ body {
   background:
     transparent;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
 }
 
 
-.info-group--callsign
-.info-data,
-.info-group--network
-.info-data {
+.info-group--callsign .info-data,
+.info-group--network .info-data {
 
   justify-content:
     flex-start;
@@ -359,13 +338,17 @@ body {
 
 .info-label {
 
-  font-size: 19px;
+  font-size:
+    19px;
 
-  font-weight: 500;
+  font-weight:
+    500;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 
 }
 
@@ -376,20 +359,26 @@ body {
 
 .info-value {
 
-  max-width: 100%;
+  max-width:
+    100%;
 
-  font-size: 18px;
+  font-size:
+    18px;
 
-  font-weight: 600;
+  font-weight:
+    600;
 
-  line-height: 1;
+  line-height:
+    1;
 
   color:
     var(--white);
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   text-overflow:
     ellipsis;
@@ -403,11 +392,17 @@ body {
 
 .item-icon {
 
-  width: 23px;
-  height: 23px;
+  display:
+    block;
+
+  width:
+    24px;
+
+  height:
+    24px;
 
   flex:
-    0 0 23px;
+    0 0 24px;
 
   color:
     white;
@@ -430,13 +425,981 @@ body {
 }
 
 
-.item-icon--fill {
+/* =========================================================
+   CALLSIGN
+========================================================= */
+
+.item-icon--callsign {
+
+  width:
+    26px;
+
+  height:
+    24px;
+
+  flex:
+    0 0 26px;
+
+  overflow:
+    visible;
+
+}
+
+
+.headset-icon {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+}
+
+
+.headset-spark {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.8;
+
+  opacity:
+    0;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+}
+
+
+.headset-spark--left {
+
+  animation:
+    headset-spark-left
+    4.8s
+    linear
+    infinite;
+
+}
+
+
+.headset-spark--right {
+
+  animation:
+    headset-spark-right
+    4.8s
+    linear
+    infinite;
+
+}
+
+
+.headset-spark--top {
+
+  animation:
+    headset-spark-top
+    4.8s
+    linear
+    infinite;
+
+}
+
+
+@keyframes headset-spark-left {
+
+  0%,
+  11%,
+  18%,
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      scale(0.6);
+
+  }
+
+
+  12%,
+  15% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+
+@keyframes headset-spark-right {
+
+  0%,
+  17%,
+  24%,
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      scale(0.6);
+
+  }
+
+
+  18%,
+  21% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+
+@keyframes headset-spark-top {
+
+  0%,
+  23%,
+  30%,
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      scale(0.6);
+
+  }
+
+
+  24%,
+  27% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+
+/* =========================================================
+   NETWORK
+========================================================= */
+
+.item-icon--network {
+
+  width:
+    25px;
+
+  height:
+    25px;
+
+  flex:
+    0 0 25px;
+
+  overflow:
+    visible;
+
+}
+
+
+.wifi-wave {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  opacity:
+    0.18;
+
+}
+
+
+.wifi-dot {
 
   fill:
     currentColor;
 
   stroke:
     none;
+
+}
+
+
+.wifi-wave--1 {
+
+  animation:
+    wifi-wave-1
+    3.8s
+    linear
+    infinite;
+
+}
+
+
+.wifi-wave--2 {
+
+  animation:
+    wifi-wave-2
+    3.8s
+    linear
+    infinite;
+
+}
+
+
+.wifi-wave--3 {
+
+  animation:
+    wifi-wave-3
+    3.8s
+    linear
+    infinite;
+
+}
+
+
+@keyframes wifi-wave-1 {
+
+  0%,
+  8% {
+
+    opacity:
+      0.18;
+
+  }
+
+
+  12%,
+  58% {
+
+    opacity:
+      1;
+
+  }
+
+
+  68%,
+  100% {
+
+    opacity:
+      0.18;
+
+  }
+
+}
+
+
+@keyframes wifi-wave-2 {
+
+  0%,
+  17% {
+
+    opacity:
+      0.18;
+
+  }
+
+
+  22%,
+  58% {
+
+    opacity:
+      1;
+
+  }
+
+
+  68%,
+  100% {
+
+    opacity:
+      0.18;
+
+  }
+
+}
+
+
+@keyframes wifi-wave-3 {
+
+  0%,
+  27% {
+
+    opacity:
+      0.18;
+
+  }
+
+
+  32%,
+  58% {
+
+    opacity:
+      1;
+
+  }
+
+
+  68%,
+  100% {
+
+    opacity:
+      0.18;
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE
+========================================================= */
+
+.item-icon--phase {
+
+  width:
+    27px;
+
+  height:
+    27px;
+
+  flex:
+    0 0 27px;
+
+  overflow:
+    visible;
+
+}
+
+
+/* =========================================================
+   PHASE — DIAL
+========================================================= */
+
+.phase-dial {
+
+  fill:
+    none;
+
+  stroke:
+    rgb(255 255 255 / 72%);
+
+  stroke-width:
+    1.25;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    phase-dial-pulse
+    4.6s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes phase-dial-pulse {
+
+  0%,
+  100% {
+
+    opacity:
+      0.65;
+
+  }
+
+
+  50% {
+
+    opacity:
+      1;
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — HORIZON
+========================================================= */
+
+.phase-horizon-group {
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  will-change:
+    transform;
+
+}
+
+
+.phase-horizon-line {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.5;
+
+}
+
+
+.phase-horizon-mark {
+
+  fill:
+    none;
+
+  stroke:
+    rgb(255 255 255 / 55%);
+
+  stroke-width:
+    1;
+
+}
+
+
+/* =========================================================
+   PHASE — AIRCRAFT REFERENCE
+========================================================= */
+
+.phase-aircraft-reference {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.8;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+}
+
+
+.phase-center-dot {
+
+  fill:
+    currentColor;
+
+  stroke:
+    none;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    phase-center-pulse
+    2.6s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes phase-center-pulse {
+
+  0%,
+  100% {
+
+    opacity:
+      0.65;
+
+    transform:
+      scale(0.85);
+
+  }
+
+
+  50% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1.15);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — PREFLIGHT
+========================================================= */
+
+.info-group--phase[data-flight-phase="PREFLIGHT"]
+.phase-horizon-group {
+
+  animation:
+    horizon-preflight
+    4s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-preflight {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(0.5px)
+      rotate(0deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — TAXI
+========================================================= */
+
+.info-group--phase[data-flight-phase="TAXI"]
+.phase-horizon-group {
+
+  animation:
+    horizon-taxi
+    2.8s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-taxi {
+
+  0%,
+  100% {
+
+    transform:
+      translateX(-1px)
+      translateY(0)
+      rotate(-1deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateX(1px)
+      translateY(0.5px)
+      rotate(1deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — TAKEOFF
+========================================================= */
+
+.info-group--phase[data-flight-phase="TAKEOFF"]
+.phase-horizon-group {
+
+  animation:
+    horizon-takeoff
+    3.2s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-takeoff {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(1px)
+      rotate(-2deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(5px)
+      rotate(-6deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — CLIMB
+========================================================= */
+
+.info-group--phase[data-flight-phase="CLIMB"]
+.phase-horizon-group {
+
+  animation:
+    horizon-climb
+    4s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-climb {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(3px)
+      rotate(-3deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(5px)
+      rotate(-5deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — CRUISE
+========================================================= */
+
+.info-group--phase[data-flight-phase="CRUISE"]
+.phase-horizon-group {
+
+  animation:
+    horizon-cruise
+    5s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-cruise {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(-0.4px)
+      rotate(-0.5deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(0.4px)
+      rotate(0.5deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — DESCENT
+========================================================= */
+
+.info-group--phase[data-flight-phase="DESCENT"]
+.phase-horizon-group {
+
+  animation:
+    horizon-descent
+    4s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-descent {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(-3px)
+      rotate(3deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(-5px)
+      rotate(5deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — APPROACH
+========================================================= */
+
+.info-group--phase[data-flight-phase="APPROACH"]
+.phase-horizon-group {
+
+  animation:
+    horizon-approach
+    3.6s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-approach {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(-2px)
+      rotate(2deg);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(-4px)
+      rotate(4deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHASE — LANDING
+========================================================= */
+
+.info-group--phase[data-flight-phase="LANDING"]
+.phase-horizon-group {
+
+  animation:
+    horizon-landing
+    3s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes horizon-landing {
+
+  0% {
+
+    transform:
+      translateY(-4px)
+      rotate(5deg);
+
+  }
+
+
+  45% {
+
+    transform:
+      translateY(-2px)
+      rotate(2deg);
+
+  }
+
+
+  70% {
+
+    transform:
+      translateY(1px)
+      rotate(0deg);
+
+  }
+
+
+  100% {
+
+    transform:
+      translateY(-4px)
+      rotate(5deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   AIRCRAFT
+========================================================= */
+
+.item-icon--aircraft {
+
+  width:
+    23px;
+
+  height:
+    23px;
+
+  flex:
+    0 0 23px;
+
+  overflow:
+    hidden;
+
+}
+
+
+.aircraft-animation-shape {
+
+  fill:
+    currentColor;
+
+  stroke:
+    none;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    aircraft-rise
+    5s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes aircraft-rise {
+
+  0%,
+  10% {
+
+    opacity:
+      0;
+
+    transform:
+      translateY(9px);
+
+  }
+
+
+  20% {
+
+    opacity:
+      1;
+
+    transform:
+      translateY(2px);
+
+  }
+
+
+  30%,
+  62% {
+
+    opacity:
+      1;
+
+    transform:
+      translateY(0);
+
+  }
+
+
+  74% {
+
+    opacity:
+      0;
+
+    transform:
+      translateY(-7px);
+
+  }
+
+
+  75%,
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      translateY(9px);
+
+  }
 
 }
 
@@ -449,14 +1412,23 @@ body {
 
   position: absolute;
 
-  top: 44px;
+  top:
+    44px;
 
-  z-index: 2;
+  z-index:
+    2;
 
-  display: flex;
+  display:
+    flex;
 
-  width: 473px;
-  height: 42px;
+  align-items:
+    flex-start;
+
+  width:
+    473px;
+
+  height:
+    42px;
 
   background:
     var(--dark);
@@ -465,12 +1437,16 @@ body {
 
 
 /* =========================================================
-   SOCIAL LEFT
+   SOCIAL STRIP — LEFT
 ========================================================= */
 
 .social-strip--left {
 
-  left: 0;
+  left:
+    0;
+
+  justify-content:
+    flex-start;
 
   clip-path:
     polygon(
@@ -484,12 +1460,20 @@ body {
 
 
 /* =========================================================
-   SOCIAL RIGHT
+   SOCIAL STRIP — RIGHT
+
+   Important :
+   flex-end place les 63px restants côté intérieur,
+   ce qui rend le bloc parfaitement symétrique au gauche.
 ========================================================= */
 
 .social-strip--right {
 
-  right: 0;
+  right:
+    0;
+
+  justify-content:
+    flex-end;
 
   clip-path:
     polygon(
@@ -508,20 +1492,29 @@ body {
 
 .social-tag {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 10px;
+  gap:
+    10px;
 
-  width: 245px;
-  height: 40px;
+  width:
+    182px;
 
-  flex: 0 0 245px;
+  height:
+    40px;
+
+  flex:
+    0 0 182px;
 
   padding:
     0 15px;
@@ -538,13 +1531,17 @@ body {
 
 .social-label {
 
-  font-size: 19px;
+  font-size:
+    19px;
 
-  font-weight: 500;
+  font-weight:
+    500;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 
 }
 
@@ -555,30 +1552,38 @@ body {
 
 .social-data {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 1;
+  z-index:
+    1;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  width: 228px;
-  height: 40px;
+  width:
+    228px;
+
+  height:
+    40px;
 
   flex:
     0 0 228px;
 
   padding:
-    0 18px;
+    0 8px;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
 }
 
 
 /* =========================================================
-   FOLLOWER DATA
+   SOCIAL DATA — LEFT
 ========================================================= */
 
 .social-data--left {
@@ -593,7 +1598,7 @@ body {
 
 
 /* =========================================================
-   SUB DATA
+   SOCIAL DATA — RIGHT
 ========================================================= */
 
 .social-data--right {
@@ -613,20 +1618,26 @@ body {
 
 .social-value {
 
-  max-width: 100%;
+  max-width:
+    100%;
 
   color:
     white;
 
-  font-size: 19px;
+  font-size:
+    19px;
 
-  font-weight: 600;
+  font-weight:
+    600;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   text-overflow:
     ellipsis;
@@ -640,8 +1651,11 @@ body {
 
 .social-icon {
 
-  width: 23px;
-  height: 23px;
+  width:
+    23px;
+
+  height:
+    23px;
 
   flex:
     0 0 23px;
@@ -652,7 +1666,8 @@ body {
   stroke:
     currentColor;
 
-  stroke-width: 1.7;
+  stroke-width:
+    1.7;
 
   stroke-linecap:
     round;
@@ -660,11 +1675,14 @@ body {
   stroke-linejoin:
     round;
 
+  overflow:
+    visible;
+
 }
 
 
 /* =========================================================
-   FOLLOWER
+   LAST FOLLOW
 ========================================================= */
 
 .social-tag--follower {
@@ -684,12 +1702,155 @@ body {
 
 
 /* =========================================================
-   SUB
+   FOLLOWER — RING
+========================================================= */
+
+.follower-ring {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    follower-ring-pulse
+    4.8s
+    ease-out
+    infinite;
+
+}
+
+
+@keyframes follower-ring-pulse {
+
+  0%,
+  8% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+
+  15% {
+
+    opacity:
+      0.45;
+
+    transform:
+      scale(1.18);
+
+  }
+
+
+  22%,
+  100% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+
+/* =========================================================
+   FOLLOWER — PLUS
+========================================================= */
+
+.follower-plus {
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    follower-plus-animation
+    4.8s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes follower-plus-animation {
+
+  0%,
+  6% {
+
+    opacity:
+      0;
+
+    transform:
+      scale(0.4)
+      rotate(-90deg);
+
+  }
+
+
+  13% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1.15)
+      rotate(8deg);
+
+  }
+
+
+  19%,
+  82% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1)
+      rotate(0deg);
+
+  }
+
+
+  90%,
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      scale(0.6)
+      rotate(45deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   LATEST SUB
 ========================================================= */
 
 .social-tag--subscriber {
 
-  order: 2;
+  order:
+    2;
 
   justify-content:
     flex-end;
@@ -708,10 +1869,161 @@ body {
 }
 
 
-.social-strip--right
-.social-data {
+/*
+  Côté droit :
 
-  order: 1;
+  [ espace ][ DATA ][ TAG ]
+
+  Grâce au justify-content:flex-end du parent,
+  l'espace libre reste bien côté intérieur.
+*/
+
+.social-strip--right .social-data {
+
+  order:
+    1;
+
+}
+
+
+/* =========================================================
+   SUB — RING
+========================================================= */
+
+.subscriber-ring {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    subscriber-ring-pulse
+    5.2s
+    ease-out
+    infinite;
+
+}
+
+
+@keyframes subscriber-ring-pulse {
+
+  0%,
+  10% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+
+  17% {
+
+    opacity:
+      0.5;
+
+    transform:
+      scale(1.16);
+
+  }
+
+
+  24%,
+  100% {
+
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+
+/* =========================================================
+   SUB — CHECK
+========================================================= */
+
+.subscriber-check {
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.8;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+  stroke-dasharray:
+    14;
+
+  stroke-dashoffset:
+    0;
+
+  animation:
+    subscriber-check-draw
+    5.2s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes subscriber-check-draw {
+
+  0%,
+  8% {
+
+    opacity:
+      0;
+
+    stroke-dashoffset:
+      14;
+
+  }
+
+
+  20%,
+  82% {
+
+    opacity:
+      1;
+
+    stroke-dashoffset:
+      0;
+
+  }
+
+
+  90%,
+  100% {
+
+    opacity:
+      0;
+
+    stroke-dashoffset:
+      14;
+
+  }
 
 }
 
@@ -722,20 +2034,26 @@ body {
 
 .airport {
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: -4px;
+  top:
+    -4px;
 
-  z-index: 3;
+  z-index:
+    3;
 
   width:
     var(--airport-width);
 
-  height: 50px;
+  height:
+    50px;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
   background:
     var(--dark);
@@ -749,9 +2067,11 @@ body {
 
 .airport-face {
 
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: -1;
+  z-index:
+    -1;
 
   inset:
     var(--airport-border);
@@ -773,16 +2093,23 @@ body {
 
 .airport-content {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  width: 100%;
-  height: 100%;
+  width:
+    100%;
+
+  height:
+    100%;
 
 }
 
@@ -793,23 +2120,29 @@ body {
 
 .airport-text {
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 0;
+  gap:
+    0;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 
 }
 
 
 /* =========================================================
-   DEP / ARR
+   AIRPORT LABEL
 ========================================================= */
 
 .airport-label {
@@ -817,17 +2150,20 @@ body {
   color:
     var(--blue);
 
-  font-size: 20px;
+  font-size:
+    20px;
 
-  font-weight: 500;
+  font-weight:
+    500;
 
-  line-height: 1;
+  line-height:
+    1;
 
 }
 
 
 /* =========================================================
-   ICAO
+   AIRPORT CODE
 ========================================================= */
 
 .airport-code {
@@ -838,11 +2174,14 @@ body {
   color:
     var(--dark);
 
-  font-size: 20px;
+  font-size:
+    20px;
 
-  font-weight: 600;
+  font-weight:
+    600;
 
-  line-height: 1;
+  line-height:
+    1;
 
   letter-spacing:
     0.3px;
@@ -856,10 +2195,14 @@ body {
 
 .airport-flag {
 
-  display: block;
+  display:
+    block;
 
-  width: 30px;
-  height: 20px;
+  width:
+    30px;
+
+  height:
+    20px;
 
   flex:
     0 0 30px;
@@ -905,8 +2248,7 @@ body {
 }
 
 
-.airport--departure
-.airport-face {
+.airport--departure .airport-face {
 
   clip-path:
     polygon(
@@ -919,8 +2261,7 @@ body {
 }
 
 
-.airport--departure
-.airport-content {
+.airport--departure .airport-content {
 
   justify-content:
     flex-start;
@@ -934,8 +2275,7 @@ body {
 }
 
 
-.airport--departure
-.airport-text {
+.airport--departure .airport-text {
 
   align-items:
     flex-start;
@@ -970,8 +2310,7 @@ body {
 }
 
 
-.airport--arrival
-.airport-face {
+.airport--arrival .airport-face {
 
   clip-path:
     polygon(
@@ -984,8 +2323,7 @@ body {
 }
 
 
-.airport--arrival
-.airport-content {
+.airport--arrival .airport-content {
 
   justify-content:
     flex-end;
@@ -999,8 +2337,7 @@ body {
 }
 
 
-.airport--arrival
-.airport-text {
+.airport--arrival .airport-text {
 
   align-items:
     flex-end;
@@ -1017,17 +2354,23 @@ body {
 
 .center-module {
 
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 4;
+  z-index:
+    4;
 
-  top: 0;
+  top:
+    0;
 
   left:
     var(--center-x);
 
-  width: 276px;
-  height: 110px;
+  width:
+    276px;
+
+  height:
+    110px;
 
   transform:
     translateX(-50%);
@@ -1041,14 +2384,20 @@ body {
 
 .center-face {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
-  width: 100%;
-  height: 100%;
+  width:
+    100%;
 
-  overflow: hidden;
+  height:
+    100%;
+
+  overflow:
+    hidden;
 
   filter:
     drop-shadow(
@@ -1067,15 +2416,23 @@ body {
 
 .progress {
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: 0;
-  left: 0;
+  top:
+    0;
 
-  z-index: 4;
+  left:
+    0;
 
-  width: 276px;
-  height: 110px;
+  z-index:
+    4;
+
+  width:
+    276px;
+
+  height:
+    110px;
 
   overflow:
     visible;
@@ -1096,12 +2453,7 @@ body {
     none;
 
   stroke:
-    rgba(
-      255,
-      255,
-      255,
-      0.28
-    );
+    rgb(255 255 255 / 28%);
 
   stroke-width:
     3;
@@ -1184,19 +2536,25 @@ body {
 
 
 /* =========================================================
-   PERCENTAGE
+   PROGRESS PERCENT
 ========================================================= */
 
 .progress-percent {
 
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 5;
+  z-index:
+    5;
 
-  top: 0;
-  left: 50%;
+  top:
+    0;
 
-  display: flex;
+  left:
+    50%;
+
+  display:
+    flex;
 
   align-items:
     baseline;
@@ -1248,12 +2606,7 @@ body {
     1;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.65
-    );
+    rgb(255 255 255 / 65%);
 
 }
 
@@ -1264,12 +2617,14 @@ body {
 
 .center-logo {
 
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 3;
+  z-index:
+    3;
 
   top:
-    35px;
+    30px;
 
   left:
     50%;
