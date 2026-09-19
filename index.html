@@ -19,7 +19,10 @@
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="css/style.css">
+  <link
+    rel="stylesheet"
+    href="CSS/style.css"
+  >
 
   <script
     src="js/overlay.js"
@@ -64,7 +67,7 @@
       </symbol>
 
 
-      <!-- FLIGHT PHASE -->
+      <!-- PHASE -->
       <symbol
         id="icon-flight-phase"
         viewBox="0 0 24 24"
@@ -141,7 +144,9 @@
     <main class="overlay">
 
 
-      <!-- BACKGROUND -->
+      <!-- =================================================
+           BACKGROUND
+      ================================================== -->
 
       <div class="top-rail"></div>
       <div class="cyan-line"></div>
@@ -152,15 +157,31 @@
            CALLSIGN
       ================================================== -->
 
-      <div class="info-tag info-tag--callsign">
+      <div class="info-group info-group--callsign">
 
-        <svg class="item-icon">
-          <use href="#icon-headset"/>
-        </svg>
+        <div class="info-tag info-tag--callsign">
 
-        <span class="info-label">
-          CALLSIGN
-        </span>
+          <svg class="item-icon">
+            <use href="#icon-headset"/>
+          </svg>
+
+          <span class="info-label">
+            CALLSIGN
+          </span>
+
+        </div>
+
+
+        <div class="info-data">
+
+          <span
+            id="callsign"
+            class="info-value"
+          >
+            AFR006
+          </span>
+
+        </div>
 
       </div>
 
@@ -169,35 +190,64 @@
            NETWORK
       ================================================== -->
 
-      <div class="info-tag info-tag--network">
+      <div class="info-group info-group--network">
 
-        <svg class="item-icon">
-          <use href="#icon-globe"/>
-        </svg>
+        <div class="info-tag info-tag--network">
 
-        <span class="info-label">
-          NETWORK
-        </span>
+          <svg class="item-icon">
+            <use href="#icon-globe"/>
+          </svg>
+
+          <span class="info-label">
+            NETWORK
+          </span>
+
+        </div>
+
+
+        <div class="info-data">
+
+          <span
+            id="network"
+            class="info-value"
+          >
+            VATSIM
+          </span>
+
+        </div>
 
       </div>
 
 
       <!-- =================================================
-           FLIGHT PHASE
+           PHASE
       ================================================== -->
 
-      <div class="info-tag info-tag--eta">
+      <div class="info-group info-group--phase">
 
-        <svg class="item-icon">
-          <use href="#icon-flight-phase"/>
-        </svg>
+        <div class="info-data info-data--right">
 
-        <span
-          id="flight-phase"
-          class="info-label"
-        >
-          CRUISE
-        </span>
+          <span
+            id="flight-phase"
+            class="info-value"
+          >
+            CRUISE
+          </span>
+
+        </div>
+
+
+        <div class="info-tag info-tag--phase">
+
+          <svg class="item-icon">
+            <use href="#icon-flight-phase"/>
+          </svg>
+
+          <span class="info-label">
+            PHASE
+          </span>
+
+        </div>
 
       </div>
 
@@ -206,15 +256,31 @@
            AIRCRAFT
       ================================================== -->
 
-      <div class="info-tag info-tag--aircraft">
+      <div class="info-group info-group--aircraft">
 
-        <svg class="item-icon item-icon--fill">
-          <use href="#icon-aircraft"/>
-        </svg>
+        <div class="info-data info-data--right">
 
-        <span class="info-label">
-          AIRCRAFT
-        </span>
+          <span
+            id="aircraft"
+            class="info-value"
+          >
+            A320neo
+          </span>
+
+        </div>
+
+
+        <div class="info-tag info-tag--aircraft">
+
+          <svg class="item-icon item-icon--fill">
+            <use href="#icon-aircraft"/>
+          </svg>
+
+          <span class="info-label">
+            AIRCRAFT
+          </span>
+
+        </div>
 
       </div>
 
@@ -231,8 +297,20 @@
             <use href="#icon-plus"/>
           </svg>
 
-          <span>
+          <span class="social-label">
             LATEST FOLLOWER
+          </span>
+
+        </div>
+
+
+        <div class="social-data social-data--left">
+
+          <span
+            id="latest-follower"
+            class="social-value"
+          >
+            AeroMax92
           </span>
 
         </div>
@@ -246,9 +324,21 @@
 
       <div class="social-strip social-strip--right">
 
+        <div class="social-data social-data--right">
+
+          <span
+            id="latest-sub"
+            class="social-value"
+          >
+            CaptainLeo
+          </span>
+
+        </div>
+
+
         <div class="social-tag social-tag--subscriber">
 
-          <span>
+          <span class="social-label">
             LATEST SUB
           </span>
 
@@ -272,6 +362,7 @@
 
         <div class="airport-face"></div>
 
+
         <div class="airport-content">
 
           <img
@@ -281,6 +372,7 @@
             src="https://flagcdn.com/fr.svg"
             alt="Drapeau France"
           >
+
 
           <div class="airport-text">
 
@@ -314,6 +406,7 @@
 
         <div class="airport-face"></div>
 
+
         <div class="airport-content">
 
           <div class="airport-text">
@@ -331,6 +424,7 @@
             </span>
 
           </div>
+
 
           <img
             id="arrival-flag"
@@ -350,6 +444,11 @@
       ================================================== -->
 
       <div class="center-module">
+
+
+        <!-- =================================================
+             CENTER FACE
+        ================================================== -->
 
         <svg
           class="center-face"
@@ -381,6 +480,7 @@
 
           </defs>
 
+
           <circle
             cx="138"
             cy="-32"
@@ -393,7 +493,9 @@
         </svg>
 
 
-        <!-- PROGRESS -->
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
 
         <svg
           class="progress"
@@ -401,15 +503,23 @@
           aria-hidden="true"
         >
 
+          <!-- TRACK LEFT -->
+
           <path
             class="progress-track"
             d="M61 34 Q80 17 111 10"
           />
 
+
+          <!-- TRACK RIGHT -->
+
           <path
             class="progress-track"
             d="M165 10 Q196 17 215 34"
           />
+
+
+          <!-- PROGRESS LEFT -->
 
           <path
             class="progress-value"
@@ -418,6 +528,9 @@
             d="M61 34 Q80 17 111 10"
           />
 
+
+          <!-- PROGRESS RIGHT -->
+
           <path
             class="progress-value"
             data-progress-right
@@ -425,15 +538,41 @@
             d="M165 10 Q196 17 215 34"
           />
 
+
+          <!-- =============================================
+               LEFT ENDPOINT
+          ============================================== -->
+
+          <circle
+            class="progress-endpoint progress-endpoint--left"
+            cx="61"
+            cy="34"
+            r="4"
+          />
+
+
+          <!-- =============================================
+               RIGHT ENDPOINT
+          ============================================== -->
+
+          <circle
+            class="progress-endpoint progress-endpoint--right"
+            cx="215"
+            cy="34"
+            r="4"
+          />
+
         </svg>
 
 
-        <!-- POURCENTAGE -->
+        <!-- =================================================
+             POURCENTAGE
+        ================================================== -->
 
         <div class="progress-percent">
 
           <strong data-progress-text>
-            37
+            63
           </strong>
 
           <span>
@@ -443,7 +582,9 @@
         </div>
 
 
-        <!-- LOGO -->
+        <!-- =================================================
+             LOGO
+        ================================================== -->
 
         <img
           src="img/logo.min.svg"
