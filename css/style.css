@@ -17,31 +17,8 @@
 
   --center-half: 138px;
 
-
-  /*
-    Largeur augmentée.
-
-    Ancien :
-    175px
-
-    Nouveau :
-    205px
-  */
   --airport-width: 205px;
-
-
-  /*
-    On augmente le chevauchement exactement
-    de la même quantité que la largeur.
-
-    Résultat :
-    le bord extérieur ne bouge pas,
-    mais le support rentre 30px plus loin
-    sous le demi-cercle.
-  */
   --airport-overlap: 60px;
-
-
   --airport-border: 5px;
 
 }
@@ -146,7 +123,7 @@ body {
   left: 0;
 
   width: 100%;
-  height: 33px;
+  height: 38px;
 
   background:
     linear-gradient(
@@ -162,7 +139,7 @@ body {
 
   position: absolute;
 
-  top: 33px;
+  top: 38px;
   left: 0;
 
   width: 100%;
@@ -178,7 +155,7 @@ body {
 
   position: absolute;
 
-  top: 37px;
+  top: 42px;
   left: 0;
 
   width: 100%;
@@ -191,10 +168,10 @@ body {
 
 
 /* =========================================================
-   INFO TAGS
+   INFO GROUPS
 ========================================================= */
 
-.info-tag {
+.info-group {
 
   position: absolute;
 
@@ -204,12 +181,64 @@ body {
 
   display: flex;
 
+  align-items: stretch;
+
+  width: 290px;
+  height: 37px;
+
+}
+
+
+/* =========================================================
+   POSITIONS GAUCHE
+========================================================= */
+
+.info-group--callsign {
+  left: 0;
+}
+
+
+.info-group--network {
+  left: 290px;
+}
+
+
+/* =========================================================
+   POSITIONS DROITE
+========================================================= */
+
+.info-group--phase {
+  right: 290px;
+}
+
+
+.info-group--aircraft {
+  right: 0;
+}
+
+
+/* =========================================================
+   INFO TAG
+
+   Dégradé bleu avec effet de volume
+========================================================= */
+
+.info-tag {
+
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
   align-items: center;
 
   gap: 10px;
 
-  width: 170px;
-  height: 32px;
+  width: 180px;
+  height: 37px;
+
+  flex: 0 0 180px;
 
   padding:
     0 15px;
@@ -217,16 +246,33 @@ body {
   background:
     linear-gradient(
       180deg,
-      #4196ec,
-      var(--blue)
+      #49bdf1 0%,
+      #14abe9 24%,
+      #009fe3 55%,
+      #0089c7 100%
     );
 
-  color: white;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 25%),
+    inset 0 -2px 0 rgb(0 0 0 / 10%);
+
+  color:
+    white;
+
+}
+
+
+/* =========================================================
+   TAGS GAUCHE
+========================================================= */
+
+.info-tag--callsign,
+.info-tag--network {
 
   clip-path:
     polygon(
       0 0,
-      154px 0,
+      164px 0,
       100% 100%,
       0 100%
     );
@@ -234,7 +280,11 @@ body {
 }
 
 
-.info-tag--eta,
+/* =========================================================
+   TAGS DROITE
+========================================================= */
+
+.info-tag--phase,
 .info-tag--aircraft {
 
   clip-path:
@@ -249,43 +299,62 @@ body {
 
 
 /* =========================================================
-   INFO ICONS
+   INFO DATA
 ========================================================= */
 
-.item-icon {
+.info-data {
 
-  width: 23px;
-  height: 23px;
+  position: relative;
 
-  flex:
-    0 0 23px;
+  z-index: 1;
 
-  color: white;
+  display: flex;
 
-  fill: none;
+  align-items: center;
 
-  stroke:
-    currentColor;
+  width: 110px;
+  height: 37px;
 
-  stroke-width: 1.7;
+  flex: 0 0 110px;
 
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  padding:
+    0 10px;
+
+  background:
+    transparent;
+
+  overflow: hidden;
 
 }
 
 
-.item-icon--fill {
+.info-group--callsign
+.info-data,
+.info-group--network
+.info-data {
 
-  fill: currentColor;
+  justify-content:
+    flex-start;
 
-  stroke: none;
+  text-align:
+    left;
+
+}
+
+
+.info-data--right {
+
+  justify-content:
+    flex-end;
+
+  text-align:
+    right;
 
 }
 
 
 /* =========================================================
-   INFO LABELS
+   INFO LABEL
 ========================================================= */
 
 .info-label {
@@ -302,33 +371,72 @@ body {
 
 
 /* =========================================================
-   INFO POSITIONS
+   INFO VALUE
 ========================================================= */
 
-.info-tag--callsign {
+.info-value {
 
-  left: 0;
+  max-width: 100%;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  color:
+    var(--white);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow:
+    ellipsis;
 
 }
 
 
-.info-tag--network {
+/* =========================================================
+   INFO ICONS
+========================================================= */
 
-  left: 290px;
+.item-icon {
+
+  width: 23px;
+  height: 23px;
+
+  flex:
+    0 0 23px;
+
+  color:
+    white;
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.7;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
 
 }
 
 
-.info-tag--eta {
+.item-icon--fill {
 
-  right: 290px;
+  fill:
+    currentColor;
 
-}
-
-
-.info-tag--aircraft {
-
-  right: 0;
+  stroke:
+    none;
 
 }
 
@@ -341,18 +449,24 @@ body {
 
   position: absolute;
 
-  top: 39px;
+  top: 44px;
 
   z-index: 2;
 
-  width: 460px;
-  height: 40px;
+  display: flex;
+
+  width: 473px;
+  height: 42px;
 
   background:
     var(--dark);
 
 }
 
+
+/* =========================================================
+   SOCIAL LEFT
+========================================================= */
 
 .social-strip--left {
 
@@ -368,6 +482,10 @@ body {
 
 }
 
+
+/* =========================================================
+   SOCIAL RIGHT
+========================================================= */
 
 .social-strip--right {
 
@@ -385,14 +503,14 @@ body {
 
 
 /* =========================================================
-   SOCIAL TAGS
+   SOCIAL TAG
 ========================================================= */
 
 .social-tag {
 
-  position: absolute;
+  position: relative;
 
-  top: 0;
+  z-index: 2;
 
   display: flex;
 
@@ -400,13 +518,25 @@ body {
 
   gap: 10px;
 
-  width: 230px;
-  height: 38px;
+  width: 245px;
+  height: 40px;
+
+  flex: 0 0 245px;
 
   padding:
     0 15px;
 
-  color: white;
+  color:
+    white;
+
+}
+
+
+/* =========================================================
+   SOCIAL LABEL
+========================================================= */
+
+.social-label {
 
   font-size: 19px;
 
@@ -419,6 +549,95 @@ body {
 }
 
 
+/* =========================================================
+   SOCIAL DATA
+========================================================= */
+
+.social-data {
+
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 228px;
+  height: 40px;
+
+  flex:
+    0 0 228px;
+
+  padding:
+    0 18px;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================================================
+   FOLLOWER DATA
+========================================================= */
+
+.social-data--left {
+
+  justify-content:
+    flex-start;
+
+  text-align:
+    left;
+
+}
+
+
+/* =========================================================
+   SUB DATA
+========================================================= */
+
+.social-data--right {
+
+  justify-content:
+    flex-end;
+
+  text-align:
+    right;
+
+}
+
+
+/* =========================================================
+   SOCIAL VALUE
+========================================================= */
+
+.social-value {
+
+  max-width: 100%;
+
+  color:
+    white;
+
+  font-size: 19px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow:
+    ellipsis;
+
+}
+
+
+/* =========================================================
+   SOCIAL ICON
+========================================================= */
+
 .social-icon {
 
   width: 23px;
@@ -427,15 +646,19 @@ body {
   flex:
     0 0 23px;
 
-  fill: none;
+  fill:
+    none;
 
   stroke:
     currentColor;
 
   stroke-width: 1.7;
 
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
 
 }
 
@@ -445,11 +668,6 @@ body {
 ========================================================= */
 
 .social-tag--follower {
-
-  left: 0;
-
-  justify-content:
-    flex-start;
 
   background:
     var(--blue);
@@ -471,7 +689,7 @@ body {
 
 .social-tag--subscriber {
 
-  right: 0;
+  order: 2;
 
   justify-content:
     flex-end;
@@ -490,6 +708,14 @@ body {
 }
 
 
+.social-strip--right
+.social-data {
+
+  order: 1;
+
+}
+
+
 /* =========================================================
    AIRPORTS
 ========================================================= */
@@ -498,7 +724,7 @@ body {
 
   position: absolute;
 
-  top: 13px;
+  top: -4px;
 
   z-index: 3;
 
@@ -601,10 +827,13 @@ body {
 
 
 /* =========================================================
-   ICAO CODE
+   ICAO
 ========================================================= */
 
 .airport-code {
+
+  margin-top:
+    -2px;
 
   color:
     var(--dark);
@@ -615,9 +844,8 @@ body {
 
   line-height: 1;
 
-  letter-spacing: 0.3px;
-
-  margin-top: -2px;
+  letter-spacing:
+    0.3px;
 
 }
 
@@ -636,9 +864,14 @@ body {
   flex:
     0 0 30px;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  border-radius: 2px;
+  border-radius:
+    2px;
+
+  object-fit:
+    cover;
 
   box-shadow:
     0 0 0 1px
@@ -652,14 +885,6 @@ body {
 ========================================================= */
 
 .airport--departure {
-
-  /*
-    Grâce à width + overlap augmentés
-    ensemble, le bord gauche ne bouge pas.
-
-    Seul le bord droit s'étend davantage
-    sous le demi-cercle.
-  */
 
   left:
     calc(
@@ -700,7 +925,8 @@ body {
   justify-content:
     flex-start;
 
-  gap: 14px;
+  gap:
+    14px;
 
   padding:
     0 74px 0 24px;
@@ -725,14 +951,6 @@ body {
 ========================================================= */
 
 .airport--arrival {
-
-  /*
-    Même logique en miroir.
-
-    Le bord droit extérieur reste en place
-    tandis que le côté gauche s'étend
-    sous le demi-cercle.
-  */
 
   left:
     calc(
@@ -772,7 +990,8 @@ body {
   justify-content:
     flex-end;
 
-  gap: 14px;
+  gap:
+    14px;
 
   padding:
     0 24px 0 74px;
@@ -858,16 +1077,23 @@ body {
   width: 276px;
   height: 110px;
 
-  overflow: visible;
+  overflow:
+    visible;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
 }
 
 
+/* =========================================================
+   PROGRESS TRACK
+========================================================= */
+
 .progress-track {
 
-  fill: none;
+  fill:
+    none;
 
   stroke:
     rgba(
@@ -877,27 +1103,38 @@ body {
       0.28
     );
 
-  stroke-width: 3;
+  stroke-width:
+    3;
 
-  stroke-linecap: round;
+  stroke-linecap:
+    round;
 
 }
 
 
+/* =========================================================
+   PROGRESS VALUE
+========================================================= */
+
 .progress-value {
 
-  fill: none;
+  fill:
+    none;
 
   stroke:
     var(--blue-light);
 
-  stroke-width: 3;
+  stroke-width:
+    3;
 
-  stroke-linecap: round;
+  stroke-linecap:
+    round;
 
-  stroke-dasharray: 100;
+  stroke-dasharray:
+    100;
 
-  stroke-dashoffset: 100;
+  stroke-dashoffset:
+    100;
 
   filter:
     drop-shadow(
@@ -921,6 +1158,32 @@ body {
 
 
 /* =========================================================
+   PROGRESS ENDPOINTS
+========================================================= */
+
+.progress-endpoint {
+
+  fill:
+    var(--blue);
+
+  stroke:
+    var(--blue);
+
+  stroke-width:
+    1.5;
+
+  filter:
+    drop-shadow(
+      0
+      0
+      4px
+      rgb(0 159 227 / 75%)
+    );
+
+}
+
+
+/* =========================================================
    PERCENTAGE
 ========================================================= */
 
@@ -935,42 +1198,54 @@ body {
 
   display: flex;
 
-  align-items: baseline;
+  align-items:
+    baseline;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  min-width: 60px;
+  min-width:
+    60px;
 
   transform:
     translateX(-50%);
 
-  color: white;
+  color:
+    white;
 
-  text-align: center;
+  text-align:
+    center;
 
 }
 
 
 .progress-percent strong {
 
-  font-size: 22px;
+  font-size:
+    22px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  line-height: 1;
+  line-height:
+    1;
 
 }
 
 
 .progress-percent span {
 
-  margin-left: 2px;
+  margin-left:
+    2px;
 
-  font-size: 20px;
+  font-size:
+    20px;
 
-  font-weight: 600;
+  font-weight:
+    600;
 
-  line-height: 1;
+  line-height:
+    1;
 
   color:
     rgba(
@@ -993,13 +1268,20 @@ body {
 
   z-index: 3;
 
-  top: 35px;
-  left: 50%;
+  top:
+    35px;
 
-  width: 56px;
-  height: 61px;
+  left:
+    50%;
 
-  object-fit: contain;
+  width:
+    56px;
+
+  height:
+    61px;
+
+  object-fit:
+    contain;
 
   transform:
     translateX(-50%);
