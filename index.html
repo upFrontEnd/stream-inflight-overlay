@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Flight Overlay</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script
+    src="js/overlay.js"
+    defer
+  ></script>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       SVG LIBRARY
+  ====================================================== -->
+
+  <svg
+    class="svg-library"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+
+    <defs>
+
+      <!-- CALLSIGN -->
+      <symbol
+        id="icon-headset"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4 13v-2a8 8 0 0 1 16 0v2"/>
+        <path d="M4 13v4a2 2 0 0 0 2 2h2v-7H6a2 2 0 0 0-2 2"/>
+        <path d="M20 13v4a2 2 0 0 1-2 2h-2v-7h2a2 2 0 0 1 2 2"/>
+      </symbol>
+
+
+      <!-- NETWORK -->
+      <symbol
+        id="icon-globe"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M3 12h18"/>
+        <path d="M12 3c3 3 4 6 4 9s-1 6-4 9"/>
+        <path d="M12 3c-3 3-4 6-4 9s1 6 4 9"/>
+      </symbol>
+
+
+      <!-- FLIGHT PHASE -->
+      <symbol
+        id="icon-flight-phase"
+        viewBox="0 0 24 24"
+      >
+        <path d="M3 17h18"/>
+        <path d="M5 14l4-4 3 2 6-6"/>
+        <path d="M15 6h3v3"/>
+      </symbol>
+
+
+      <!-- AIRCRAFT -->
+      <symbol
+        id="icon-aircraft"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="
+            M12 2
+            C11 2 10.5 4.2 10.5 7.2
+            V9.3
+            L3 13.8
+            V16
+            L10.5 13.7
+            V18.7
+            L8 21
+            V22
+            L12 21
+            L16 22
+            V21
+            L13.5 18.7
+            V13.7
+            L21 16
+            V13.8
+            L13.5 9.3
+            V7.2
+            C13.5 4.2 13 2 12 2
+            Z
+          "
+        />
+      </symbol>
+
+
+      <!-- FOLLOWER -->
+      <symbol
+        id="icon-plus"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 7v10"/>
+        <path d="M7 12h10"/>
+      </symbol>
+
+
+      <!-- SUB -->
+      <symbol
+        id="icon-check"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="12" r="9"/>
+        <path d="m7.5 12 3 3 6-7"/>
+      </symbol>
+
+    </defs>
+
+  </svg>
+
+
+  <!-- =====================================================
+       VIEWPORT
+  ====================================================== -->
+
+  <div class="viewport">
+
+    <main class="overlay">
+
+
+      <!-- BACKGROUND -->
+
+      <div class="top-rail"></div>
+      <div class="cyan-line"></div>
+      <div class="lower-rail"></div>
+
+
+      <!-- =================================================
+           CALLSIGN
+      ================================================== -->
+
+      <div class="info-tag info-tag--callsign">
+
+        <svg class="item-icon">
+          <use href="#icon-headset"/>
+        </svg>
+
+        <span class="info-label">
+          CALLSIGN
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           NETWORK
+      ================================================== -->
+
+      <div class="info-tag info-tag--network">
+
+        <svg class="item-icon">
+          <use href="#icon-globe"/>
+        </svg>
+
+        <span class="info-label">
+          NETWORK
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           FLIGHT PHASE
+      ================================================== -->
+
+      <div class="info-tag info-tag--eta">
+
+        <svg class="item-icon">
+          <use href="#icon-flight-phase"/>
+        </svg>
+
+        <span
+          id="flight-phase"
+          class="info-label"
+        >
+          CRUISE
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           AIRCRAFT
+      ================================================== -->
+
+      <div class="info-tag info-tag--aircraft">
+
+        <svg class="item-icon item-icon--fill">
+          <use href="#icon-aircraft"/>
+        </svg>
+
+        <span class="info-label">
+          AIRCRAFT
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           FOLLOWER
+      ================================================== -->
+
+      <div class="social-strip social-strip--left">
+
+        <div class="social-tag social-tag--follower">
+
+          <svg class="social-icon">
+            <use href="#icon-plus"/>
+          </svg>
+
+          <span>
+            LATEST FOLLOWER
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           SUB
+      ================================================== -->
+
+      <div class="social-strip social-strip--right">
+
+        <div class="social-tag social-tag--subscriber">
+
+          <span>
+            LATEST SUB
+          </span>
+
+          <svg class="social-icon">
+            <use href="#icon-check"/>
+          </svg>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DEPARTURE
+      ================================================== -->
+
+      <div
+        class="airport airport--departure"
+        data-airport="departure"
+      >
+
+        <div class="airport-face"></div>
+
+        <div class="airport-content">
+
+          <img
+            id="departure-flag"
+            class="airport-flag"
+            data-country="FR"
+            src="https://flagcdn.com/fr.svg"
+            alt="Drapeau France"
+          >
+
+          <div class="airport-text">
+
+            <span class="airport-label">
+              DEP
+            </span>
+
+            <span
+              id="departure-code"
+              class="airport-code"
+              data-icao="LFPG"
+            >
+              LFPG
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ARRIVAL
+      ================================================== -->
+
+      <div
+        class="airport airport--arrival"
+        data-airport="arrival"
+      >
+
+        <div class="airport-face"></div>
+
+        <div class="airport-content">
+
+          <div class="airport-text">
+
+            <span class="airport-label">
+              ARR
+            </span>
+
+            <span
+              id="arrival-code"
+              class="airport-code"
+              data-icao="KJFK"
+            >
+              KJFK
+            </span>
+
+          </div>
+
+          <img
+            id="arrival-flag"
+            class="airport-flag"
+            data-country="US"
+            src="https://flagcdn.com/us.svg"
+            alt="Drapeau États-Unis"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           CENTER MODULE
+      ================================================== -->
+
+      <div class="center-module">
+
+        <svg
+          class="center-face"
+          viewBox="0 0 276 110"
+          aria-hidden="true"
+        >
+
+          <defs>
+
+            <linearGradient
+              id="centerGradient"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="110"
+            >
+
+              <stop
+                offset="0"
+                stop-color="#284663"
+              />
+
+              <stop
+                offset="1"
+                stop-color="#0c2643"
+              />
+
+            </linearGradient>
+
+          </defs>
+
+          <circle
+            cx="138"
+            cy="-32"
+            r="136"
+            fill="url(#centerGradient)"
+            stroke="#dedfe0"
+            stroke-width="3.5"
+          />
+
+        </svg>
+
+
+        <!-- PROGRESS -->
+
+        <svg
+          class="progress"
+          viewBox="0 0 276 110"
+          aria-hidden="true"
+        >
+
+          <path
+            class="progress-track"
+            d="M61 34 Q80 17 111 10"
+          />
+
+          <path
+            class="progress-track"
+            d="M165 10 Q196 17 215 34"
+          />
+
+          <path
+            class="progress-value"
+            data-progress-left
+            pathLength="100"
+            d="M61 34 Q80 17 111 10"
+          />
+
+          <path
+            class="progress-value"
+            data-progress-right
+            pathLength="100"
+            d="M165 10 Q196 17 215 34"
+          />
+
+        </svg>
+
+
+        <!-- POURCENTAGE -->
+
+        <div class="progress-percent">
+
+          <strong data-progress-text>
+            37
+          </strong>
+
+          <span>
+            %
+          </span>
+
+        </div>
+
+
+        <!-- LOGO -->
+
+        <img
+          src="img/logo.min.svg"
+          alt=""
+          class="center-logo"
+        >
+
+      </div>
+
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>
