@@ -32,113 +32,6 @@
 
 <body>
 
-  <!-- =====================================================
-       SVG LIBRARY
-  ====================================================== -->
-
-  <svg
-    class="svg-library"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-
-    <defs>
-
-      <!-- CALLSIGN -->
-      <symbol
-        id="icon-headset"
-        viewBox="0 0 24 24"
-      >
-        <path d="M4 13v-2a8 8 0 0 1 16 0v2"/>
-        <path d="M4 13v4a2 2 0 0 0 2 2h2v-7H6a2 2 0 0 0-2 2"/>
-        <path d="M20 13v4a2 2 0 0 1-2 2h-2v-7h2a2 2 0 0 1 2 2"/>
-      </symbol>
-
-
-      <!-- NETWORK -->
-      <symbol
-        id="icon-globe"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M3 12h18"/>
-        <path d="M12 3c3 3 4 6 4 9s-1 6-4 9"/>
-        <path d="M12 3c-3 3-4 6-4 9s1 6 4 9"/>
-      </symbol>
-
-
-      <!-- PHASE -->
-      <symbol
-        id="icon-flight-phase"
-        viewBox="0 0 24 24"
-      >
-        <path d="M3 17h18"/>
-        <path d="M5 14l4-4 3 2 6-6"/>
-        <path d="M15 6h3v3"/>
-      </symbol>
-
-
-      <!-- AIRCRAFT -->
-      <symbol
-        id="icon-aircraft"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="
-            M12 2
-            C11 2 10.5 4.2 10.5 7.2
-            V9.3
-            L3 13.8
-            V16
-            L10.5 13.7
-            V18.7
-            L8 21
-            V22
-            L12 21
-            L16 22
-            V21
-            L13.5 18.7
-            V13.7
-            L21 16
-            V13.8
-            L13.5 9.3
-            V7.2
-            C13.5 4.2 13 2 12 2
-            Z
-          "
-        />
-      </symbol>
-
-
-      <!-- FOLLOWER -->
-      <symbol
-        id="icon-plus"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 7v10"/>
-        <path d="M7 12h10"/>
-      </symbol>
-
-
-      <!-- SUB -->
-      <symbol
-        id="icon-check"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="12" cy="12" r="9"/>
-        <path d="m7.5 12 3 3 6-7"/>
-      </symbol>
-
-    </defs>
-
-  </svg>
-
-
-  <!-- =====================================================
-       VIEWPORT
-  ====================================================== -->
-
   <div class="viewport">
 
     <main class="overlay">
@@ -161,8 +54,59 @@
 
         <div class="info-tag info-tag--callsign">
 
-          <svg class="item-icon">
-            <use href="#icon-headset"/>
+          <svg
+            class="item-icon item-icon--callsign"
+            viewBox="0 0 32 28"
+            aria-hidden="true"
+          >
+
+            <g class="headset-icon">
+
+              <path d="M7 16v-3a9 9 0 0 1 18 0v3"/>
+
+              <path
+                d="
+                  M7 15
+                  H5.5
+                  A2.5 2.5 0 0 0 3 17.5
+                  V20
+                  A2.5 2.5 0 0 0 5.5 22.5
+                  H8
+                  V15
+                  Z
+                "
+              />
+
+              <path
+                d="
+                  M25 15
+                  H26.5
+                  A2.5 2.5 0 0 1 29 17.5
+                  V20
+                  A2.5 2.5 0 0 1 26.5 22.5
+                  H24
+                  V15
+                  Z
+                "
+              />
+
+            </g>
+
+            <path
+              class="headset-spark headset-spark--left"
+              d="M2 7 L5 8 L3.5 11"
+            />
+
+            <path
+              class="headset-spark headset-spark--right"
+              d="M30 7 L27 8 L28.5 11"
+            />
+
+            <path
+              class="headset-spark headset-spark--top"
+              d="M16 1 L17 4 L15 5"
+            />
+
           </svg>
 
           <span class="info-label">
@@ -194,8 +138,34 @@
 
         <div class="info-tag info-tag--network">
 
-          <svg class="item-icon">
-            <use href="#icon-globe"/>
+          <svg
+            class="item-icon item-icon--network"
+            viewBox="0 0 28 28"
+            aria-hidden="true"
+          >
+
+            <path
+              class="wifi-wave wifi-wave--3"
+              d="M3 10.5 Q14 1 25 10.5"
+            />
+
+            <path
+              class="wifi-wave wifi-wave--2"
+              d="M7 15 Q14 9 21 15"
+            />
+
+            <path
+              class="wifi-wave wifi-wave--1"
+              d="M11 19 Q14 16.5 17 19"
+            />
+
+            <circle
+              class="wifi-dot"
+              cx="14"
+              cy="23"
+              r="1.8"
+            />
+
           </svg>
 
           <span class="info-label">
@@ -223,7 +193,10 @@
            PHASE
       ================================================== -->
 
-      <div class="info-group info-group--phase">
+      <div
+        class="info-group info-group--phase"
+        data-flight-phase="CRUISE"
+      >
 
         <div class="info-data info-data--right">
 
@@ -239,9 +212,79 @@
 
         <div class="info-tag info-tag--phase">
 
-          <svg class="item-icon">
-            <use href="#icon-flight-phase"/>
+          <svg
+            class="item-icon item-icon--phase"
+            viewBox="0 0 32 32"
+            aria-hidden="true"
+          >
+
+            <circle
+              class="phase-dial"
+              cx="16"
+              cy="16"
+              r="12.5"
+            />
+
+
+            <g class="phase-horizon-group">
+
+              <path
+                class="phase-horizon-line"
+                d="M6.5 16 H25.5"
+              />
+
+              <path
+                class="phase-horizon-mark phase-horizon-mark--left"
+                d="M8.5 12.5 H12"
+              />
+
+              <path
+                class="phase-horizon-mark phase-horizon-mark--right"
+                d="M20 12.5 H23.5"
+              />
+
+              <path
+                class="phase-horizon-mark phase-horizon-mark--left"
+                d="M10 20 H13"
+              />
+
+              <path
+                class="phase-horizon-mark phase-horizon-mark--right"
+                d="M19 20 H22"
+              />
+
+            </g>
+
+
+            <g class="phase-aircraft-reference">
+
+              <path
+                d="
+                  M7.5 16
+                  H12.5
+                  L14.2 18
+                  H17.8
+                  L19.5 16
+                  H24.5
+                "
+              />
+
+              <path
+                d="M16 18 V20.5"
+              />
+
+            </g>
+
+
+            <circle
+              class="phase-center-dot"
+              cx="16"
+              cy="16"
+              r="1.25"
+            />
+
           </svg>
+
 
           <span class="info-label">
             PHASE
@@ -272,9 +315,40 @@
 
         <div class="info-tag info-tag--aircraft">
 
-          <svg class="item-icon item-icon--fill">
-            <use href="#icon-aircraft"/>
+          <svg
+            class="item-icon item-icon--aircraft"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+
+            <path
+              class="aircraft-animation-shape"
+              d="
+                M12 2
+                C11 2 10.5 4.2 10.5 7.2
+                V9.3
+                L3 13.8
+                V16
+                L10.5 13.7
+                V18.7
+                L8 21
+                V22
+                L12 21
+                L16 22
+                V21
+                L13.5 18.7
+                V13.7
+                L21 16
+                V13.8
+                L13.5 9.3
+                V7.2
+                C13.5 4.2 13 2 12 2
+                Z
+              "
+            />
+
           </svg>
+
 
           <span class="info-label">
             AIRCRAFT
@@ -286,19 +360,38 @@
 
 
       <!-- =================================================
-           FOLLOWER
+           LAST FOLLOWER
       ================================================== -->
 
       <div class="social-strip social-strip--left">
 
         <div class="social-tag social-tag--follower">
 
-          <svg class="social-icon">
-            <use href="#icon-plus"/>
+          <svg
+            class="social-icon social-icon--follower"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+
+            <circle
+              class="follower-ring"
+              cx="12"
+              cy="12"
+              r="9"
+            />
+
+            <g class="follower-plus">
+
+              <path d="M12 7v10"/>
+              <path d="M7 12h10"/>
+
+            </g>
+
           </svg>
 
+
           <span class="social-label">
-            LATEST FOLLOWER
+            LAST FOLLOW
           </span>
 
         </div>
@@ -319,7 +412,7 @@
 
 
       <!-- =================================================
-           SUB
+           LATEST SUB
       ================================================== -->
 
       <div class="social-strip social-strip--right">
@@ -342,8 +435,25 @@
             LATEST SUB
           </span>
 
-          <svg class="social-icon">
-            <use href="#icon-check"/>
+
+          <svg
+            class="social-icon social-icon--subscriber"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+
+            <circle
+              class="subscriber-ring"
+              cx="12"
+              cy="12"
+              r="9"
+            />
+
+            <path
+              class="subscriber-check"
+              d="M7.5 12 L10.5 15 L16.5 8"
+            />
+
           </svg>
 
         </div>
@@ -445,11 +555,6 @@
 
       <div class="center-module">
 
-
-        <!-- =================================================
-             CENTER FACE
-        ================================================== -->
-
         <svg
           class="center-face"
           viewBox="0 0 276 110"
@@ -493,33 +598,21 @@
         </svg>
 
 
-        <!-- =================================================
-             PROGRESS
-        ================================================== -->
-
         <svg
           class="progress"
           viewBox="0 0 276 110"
           aria-hidden="true"
         >
 
-          <!-- TRACK LEFT -->
-
           <path
             class="progress-track"
             d="M61 34 Q80 17 111 10"
           />
 
-
-          <!-- TRACK RIGHT -->
-
           <path
             class="progress-track"
             d="M165 10 Q196 17 215 34"
           />
-
-
-          <!-- PROGRESS LEFT -->
 
           <path
             class="progress-value"
@@ -528,9 +621,6 @@
             d="M61 34 Q80 17 111 10"
           />
 
-
-          <!-- PROGRESS RIGHT -->
-
           <path
             class="progress-value"
             data-progress-right
@@ -538,22 +628,12 @@
             d="M165 10 Q196 17 215 34"
           />
 
-
-          <!-- =============================================
-               LEFT ENDPOINT
-          ============================================== -->
-
           <circle
             class="progress-endpoint progress-endpoint--left"
             cx="61"
             cy="34"
             r="4"
           />
-
-
-          <!-- =============================================
-               RIGHT ENDPOINT
-          ============================================== -->
 
           <circle
             class="progress-endpoint progress-endpoint--right"
@@ -564,10 +644,6 @@
 
         </svg>
 
-
-        <!-- =================================================
-             POURCENTAGE
-        ================================================== -->
 
         <div class="progress-percent">
 
@@ -581,10 +657,6 @@
 
         </div>
 
-
-        <!-- =================================================
-             LOGO
-        ================================================== -->
 
         <img
           src="img/logo.min.svg"
