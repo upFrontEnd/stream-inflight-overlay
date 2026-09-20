@@ -1,0 +1,22 @@
+$blue: #009fe3;
+$blue-light: #4ac7ff;
+$dark: #252e35;
+$dark-light: #35414a;
+$dark-deep: #1b2329;
+$green: #4caf50;
+$white: #ffffff;
+
+$center-x: 952px;
+$center-half: 138px;
+
+$airport-width: 205px;
+$airport-overlap: 60px;
+$airport-border: 5px;
+
+$dark-gradient: linear-gradient(
+  180deg,
+  $dark-light 0%,
+  #2d3840 22%,
+  $dark 58%,
+  $dark-deep 100%
+);

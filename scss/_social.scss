@@ -1,0 +1,203 @@
+@use "variables" as *;
+
+.social-strip {
+  position: absolute;
+  top: 44px;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-start;
+
+  width: 473px;
+  height: 42px;
+
+  background: $dark-gradient;
+
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    inset 0 -1px 0 rgb(0 0 0 / 20%);
+
+  &--left {
+    left: 0;
+    justify-content: flex-start;
+
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      calc(100% - 20px) 100%,
+      0 100%
+    );
+  }
+
+  &--right {
+    right: 0;
+    justify-content: flex-end;
+
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      20px 100%
+    );
+
+    .social-data {
+      order: 1;
+    }
+
+    .social-value {
+      --social-glow: rgb(76 175 80 / 90%);
+    }
+  }
+
+  &--left .social-value {
+    --social-glow: rgb(74 199 255 / 90%);
+  }
+}
+
+.social-tag {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 182px;
+  height: 40px;
+  flex: 0 0 182px;
+
+  padding: 0 15px;
+  color: $white;
+
+  &--follower {
+    background: $blue;
+
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      calc(100% - 18px) 100%,
+      0 100%
+    );
+  }
+
+  &--subscriber {
+    order: 2;
+    justify-content: flex-end;
+
+    background: $green;
+
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      18px 100%
+    );
+  }
+}
+
+.social-label {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.social-data {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
+  width: 228px;
+  height: 40px;
+  flex: 0 0 228px;
+
+  padding: 0 8px;
+
+  overflow: hidden;
+
+  &--left {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  &--right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
+
+.social-value {
+  --social-glow: rgb(255 255 255 / 35%);
+
+  position: relative;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  color: $white;
+
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  transform-origin: center;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+  &.is-social-update {
+    animation:
+      social-value-reveal
+      950ms
+      cubic-bezier(.22, 1, .36, 1)
+      both;
+  }
+}
+
+.social-icon {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+
+  overflow: visible;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.follower-ring,
+.subscriber-ring {
+  fill: none;
+  stroke: currentColor;
+
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.follower-plus {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.subscriber-check {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  stroke-dasharray: 14;
+  stroke-dashoffset: 0;
+}

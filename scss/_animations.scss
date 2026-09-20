@@ -1,0 +1,494 @@
+/* =========================================================
+   CYAN LINE
+========================================================= */
+
+@keyframes cyan-glow-left {
+  0%, 12% {
+    left: -120px;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: .75;
+  }
+
+  68% {
+    left: calc(var(--center-x) - var(--center-half) - 100px);
+    opacity: .75;
+  }
+
+  78%, 100% {
+    left: calc(var(--center-x) - var(--center-half) - 40px);
+    opacity: 0;
+  }
+}
+
+@keyframes cyan-glow-right {
+  0%, 12% {
+    right: -120px;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: .75;
+  }
+
+  68% {
+    right: calc(1920px - var(--center-x) - var(--center-half) - 100px);
+    opacity: .75;
+  }
+
+  78%, 100% {
+    right: calc(1920px - var(--center-x) - var(--center-half) - 40px);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   CALLSIGN
+========================================================= */
+
+.headset-spark {
+  opacity: 0;
+  stroke-width: 1.8;
+
+  transform-box: fill-box;
+  transform-origin: center;
+
+  &--left {
+    animation: headset-spark-left 4.8s linear infinite;
+  }
+
+  &--right {
+    animation: headset-spark-right 4.8s linear infinite;
+  }
+
+  &--top {
+    animation: headset-spark-top 4.8s linear infinite;
+  }
+}
+
+@keyframes headset-spark-left {
+  0%, 11%, 18%, 100% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  12%, 15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes headset-spark-right {
+  0%, 17%, 24%, 100% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  18%, 21% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes headset-spark-top {
+  0%, 23%, 30%, 100% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  24%, 27% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================================
+   NETWORK
+========================================================= */
+
+.wifi-wave {
+  &--1 {
+    animation: wifi-wave-1 3.8s linear infinite;
+  }
+
+  &--2 {
+    animation: wifi-wave-2 3.8s linear infinite;
+  }
+
+  &--3 {
+    animation: wifi-wave-3 3.8s linear infinite;
+  }
+}
+
+@keyframes wifi-wave-1 {
+  0%, 8%, 68%, 100% {
+    opacity: .18;
+  }
+
+  12%, 58% {
+    opacity: 1;
+  }
+}
+
+@keyframes wifi-wave-2 {
+  0%, 17%, 68%, 100% {
+    opacity: .18;
+  }
+
+  22%, 58% {
+    opacity: 1;
+  }
+}
+
+@keyframes wifi-wave-3 {
+  0%, 27%, 68%, 100% {
+    opacity: .18;
+  }
+
+  32%, 58% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   PHASE
+========================================================= */
+
+.phase-dial {
+  transform-box: fill-box;
+  transform-origin: center;
+
+  animation: phase-dial-pulse 4.6s ease-in-out infinite;
+}
+
+.phase-center-dot {
+  animation: phase-center-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes phase-dial-pulse {
+  0%, 100% {
+    opacity: .65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes phase-center-pulse {
+  0%, 100% {
+    opacity: .65;
+    transform: scale(.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.info-group--phase {
+  &[data-flight-phase="PREFLIGHT"] .phase-horizon-group {
+    animation: horizon-preflight 4s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="TAXI"] .phase-horizon-group {
+    animation: horizon-taxi 2.8s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="TAKEOFF"] .phase-horizon-group {
+    animation: horizon-takeoff 3.2s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="CLIMB"] .phase-horizon-group {
+    animation: horizon-climb 4s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="CRUISE"] .phase-horizon-group {
+    animation: horizon-cruise 5s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="DESCENT"] .phase-horizon-group {
+    animation: horizon-descent 4s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="APPROACH"] .phase-horizon-group {
+    animation: horizon-approach 3.6s ease-in-out infinite;
+  }
+
+  &[data-flight-phase="LANDING"] .phase-horizon-group {
+    animation: horizon-landing 3s ease-in-out infinite;
+  }
+}
+
+@keyframes horizon-preflight {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(.5px);
+  }
+}
+
+@keyframes horizon-taxi {
+  0%, 100% {
+    transform: translate(-1px, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate(1px, .5px) rotate(1deg);
+  }
+}
+
+@keyframes horizon-takeoff {
+  0%, 100% {
+    transform: translateY(1px) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(5px) rotate(-6deg);
+  }
+}
+
+@keyframes horizon-climb {
+  0%, 100% {
+    transform: translateY(3px) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(5px) rotate(-5deg);
+  }
+}
+
+@keyframes horizon-cruise {
+  0%, 100% {
+    transform: translateY(-.4px) rotate(-.5deg);
+  }
+
+  50% {
+    transform: translateY(.4px) rotate(.5deg);
+  }
+}
+
+@keyframes horizon-descent {
+  0%, 100% {
+    transform: translateY(-3px) rotate(3deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+}
+
+@keyframes horizon-approach {
+  0%, 100% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(4deg);
+  }
+}
+
+@keyframes horizon-landing {
+  0%, 100% {
+    transform: translateY(-4px) rotate(5deg);
+  }
+
+  45% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+
+  70% {
+    transform: translateY(1px);
+  }
+}
+
+
+/* =========================================================
+   AIRCRAFT
+========================================================= */
+
+.aircraft-animation-shape {
+  animation: aircraft-rise 10s ease-in-out infinite;
+}
+
+@keyframes aircraft-rise {
+  0%, 6% {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+
+  15%, 24% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  31% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  32%, 100% {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+}
+
+
+/* =========================================================
+   SOCIAL ICONS
+========================================================= */
+
+.follower-ring {
+  animation: follower-ring-pulse 4.8s ease-out infinite;
+}
+
+.follower-plus {
+  animation: follower-plus-animation 4.8s ease-in-out infinite;
+}
+
+.subscriber-ring {
+  animation: subscriber-ring-pulse 5.2s ease-out infinite;
+}
+
+.subscriber-check {
+  animation: subscriber-check-draw 5.2s ease-in-out infinite;
+}
+
+@keyframes follower-ring-pulse {
+  0%, 8%, 22%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  15% {
+    opacity: .45;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes follower-plus-animation {
+  0%, 6% {
+    opacity: 0;
+    transform: scale(.4) rotate(-90deg);
+  }
+
+  13% {
+    opacity: 1;
+    transform: scale(1.15) rotate(8deg);
+  }
+
+  19%, 82% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  90%, 100% {
+    opacity: 0;
+    transform: scale(.6) rotate(45deg);
+  }
+}
+
+@keyframes subscriber-ring-pulse {
+  0%, 10%, 24%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  17% {
+    opacity: .5;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes subscriber-check-draw {
+  0%, 8% {
+    opacity: 0;
+    stroke-dashoffset: 14;
+  }
+
+  20%, 82% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  90%, 100% {
+    opacity: 0;
+    stroke-dashoffset: 14;
+  }
+}
+
+
+/* =========================================================
+   NEW FOLLOW / SUB NAME
+========================================================= */
+
+@keyframes social-value-reveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(8px)
+      scale(.97);
+
+    filter: blur(3px);
+
+    letter-spacing: .04em;
+
+    text-shadow:
+      0 0 0 transparent;
+  }
+
+  35% {
+    opacity: 1;
+
+    transform:
+      translateY(-1px)
+      scale(1.025);
+
+    filter: blur(0);
+
+    letter-spacing: .015em;
+
+    text-shadow:
+      0 0 8px var(--social-glow);
+  }
+
+  65% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    letter-spacing: 0;
+
+    text-shadow:
+      0 0 4px var(--social-glow);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+
+    letter-spacing: 0;
+
+    text-shadow:
+      0 0 0 transparent;
+  }
+}

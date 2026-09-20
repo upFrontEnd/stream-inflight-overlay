@@ -1,0 +1,66 @@
+@use "variables" as *;
+
+:root {
+  --overlay-scale: 1;
+
+  --blue: #{$blue};
+  --blue-light: #{$blue-light};
+
+  --dark: #{$dark};
+  --green: #{$green};
+  --white: #{$white};
+
+  --center-x: #{$center-x};
+  --center-half: #{$center-half};
+
+  --airport-width: #{$airport-width};
+  --airport-overlap: #{$airport-overlap};
+  --airport-border: #{$airport-border};
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: transparent;
+  color: $white;
+
+  font-family:
+    "Roboto Condensed",
+    "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  width: 1920px;
+  height: 160px;
+
+  isolation: isolate;
+
+  transform:
+    translateX(-50%)
+    scale(var(--overlay-scale));
+
+  transform-origin: top center;
+}
