@@ -10,11 +10,24 @@
   --blue-light: #4ac7ff;
 
   --dark: #252e35;
+
+  --dark-light: #35414a;
+  --dark-mid: #252e35;
+  --dark-deep: #1b2329;
+
+  --dark-gradient:
+    linear-gradient(
+      180deg,
+      var(--dark-light) 0%,
+      #2d3840 22%,
+      var(--dark-mid) 58%,
+      var(--dark-deep) 100%
+    );
+
   --green: #4caf50;
   --white: #ffffff;
 
   --center-x: 952px;
-
   --center-half: 138px;
 
   --airport-width: 205px;
@@ -35,21 +48,15 @@
 
 html,
 body {
-
   width: 100%;
   height: 100%;
-
   margin: 0;
-
 }
 
 
 body {
-
   overflow: hidden;
-
   background: transparent;
-
   color: white;
 
   font-family:
@@ -57,7 +64,6 @@ body {
     "Arial Narrow",
     Arial,
     sans-serif;
-
 }
 
 
@@ -66,19 +72,16 @@ body {
 ========================================================= */
 
 .viewport {
-
   position: relative;
 
   width: 100%;
   height: 100%;
 
   overflow: hidden;
-
 }
 
 
 .overlay {
-
   position: absolute;
 
   top: 0;
@@ -93,9 +96,7 @@ body {
     translateX(-50%)
     scale(var(--overlay-scale));
 
-  transform-origin:
-    top center;
-
+  transform-origin: top center;
 }
 
 
@@ -104,7 +105,6 @@ body {
 ========================================================= */
 
 .top-rail {
-
   position: absolute;
 
   top: 0;
@@ -114,21 +114,25 @@ body {
   height: 38px;
 
   background:
-    linear-gradient(
-      180deg,
-      #2e3740,
-      #1d252c
-    );
+    var(--dark-gradient);
 
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    inset 0 -1px 0 rgb(0 0 0 / 18%);
 }
 
 
-.cyan-line {
+/* =========================================================
+   CYAN LINE
+========================================================= */
 
+.cyan-line {
   position: absolute;
 
   top: 38px;
   left: 0;
+
+  z-index: 1;
 
   width: 100%;
   height: 4px;
@@ -136,11 +140,188 @@ body {
   background:
     var(--blue);
 
+  overflow: hidden;
 }
 
 
-.lower-rail {
+/* =========================================================
+   CYAN LINE — LIGHT
+========================================================= */
 
+.cyan-line::before,
+.cyan-line::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  width: 120px;
+  height: 100%;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(74 199 255 / 8%) 18%,
+      rgb(170 228 255 / 28%) 38%,
+      rgb(230 248 255 / 55%) 50%,
+      rgb(170 228 255 / 28%) 62%,
+      rgb(74 199 255 / 8%) 82%,
+      transparent 100%
+    );
+
+  filter:
+    blur(0.25px);
+}
+
+
+/* =========================================================
+   CYAN LINE — LEFT -> CENTER
+========================================================= */
+
+.cyan-line::before {
+  left: -120px;
+
+  animation:
+    cyan-glow-left
+    9s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   CYAN LINE — RIGHT -> CENTER
+========================================================= */
+
+.cyan-line::after {
+  right: -120px;
+
+  animation:
+    cyan-glow-right
+    9s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   CYAN LINE — LEFT ANIMATION
+========================================================= */
+
+@keyframes cyan-glow-left {
+
+  0%,
+  12% {
+    left: -120px;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.75;
+  }
+
+  68% {
+    left:
+      calc(
+        var(--center-x)
+        - var(--center-half)
+        - 100px
+      );
+
+    opacity: 0.75;
+  }
+
+  78% {
+    left:
+      calc(
+        var(--center-x)
+        - var(--center-half)
+        - 40px
+      );
+
+    opacity: 0;
+  }
+
+  100% {
+    left:
+      calc(
+        var(--center-x)
+        - var(--center-half)
+        - 40px
+      );
+
+    opacity: 0;
+  }
+
+}
+
+
+/* =========================================================
+   CYAN LINE — RIGHT ANIMATION
+========================================================= */
+
+@keyframes cyan-glow-right {
+
+  0%,
+  12% {
+    right: -120px;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.75;
+  }
+
+  68% {
+    right:
+      calc(
+        1920px
+        - var(--center-x)
+        - var(--center-half)
+        - 100px
+      );
+
+    opacity: 0.75;
+  }
+
+  78% {
+    right:
+      calc(
+        1920px
+        - var(--center-x)
+        - var(--center-half)
+        - 40px
+      );
+
+    opacity: 0;
+  }
+
+  100% {
+    right:
+      calc(
+        1920px
+        - var(--center-x)
+        - var(--center-half)
+        - 40px
+      );
+
+    opacity: 0;
+  }
+
+}
+
+
+/* =========================================================
+   LOWER RAIL
+========================================================= */
+
+.lower-rail {
   position: absolute;
 
   top: 42px;
@@ -150,8 +331,7 @@ body {
   height: 5px;
 
   background:
-    var(--dark);
-
+    var(--dark-gradient);
 }
 
 
@@ -160,7 +340,6 @@ body {
 ========================================================= */
 
 .info-group {
-
   position: absolute;
 
   top: 0;
@@ -168,12 +347,10 @@ body {
   z-index: 2;
 
   display: flex;
-
   align-items: stretch;
 
   width: 290px;
   height: 37px;
-
 }
 
 
@@ -202,13 +379,11 @@ body {
 ========================================================= */
 
 .info-tag {
-
   position: relative;
 
   z-index: 2;
 
   display: flex;
-
   align-items: center;
 
   gap: 10px;
@@ -216,14 +391,11 @@ body {
   width: 180px;
   height: 37px;
 
-  flex:
-    0 0 180px;
+  flex: 0 0 180px;
 
-  padding:
-    0 15px;
+  padding: 0 15px;
 
-  color:
-    white;
+  color: white;
 
   background:
     linear-gradient(
@@ -237,7 +409,6 @@ body {
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 25%),
     inset 0 -2px 0 rgb(0 0 0 / 10%);
-
 }
 
 
@@ -247,7 +418,6 @@ body {
 
 .info-tag--callsign,
 .info-tag--network {
-
   clip-path:
     polygon(
       0 0,
@@ -255,7 +425,6 @@ body {
       100% 100%,
       0 100%
     );
-
 }
 
 
@@ -265,7 +434,6 @@ body {
 
 .info-tag--phase,
 .info-tag--aircraft {
-
   clip-path:
     polygon(
       16px 0,
@@ -273,7 +441,6 @@ body {
       100% 100%,
       0 100%
     );
-
 }
 
 
@@ -282,53 +449,37 @@ body {
 ========================================================= */
 
 .info-data {
-
   position: relative;
 
   z-index: 1;
 
   display: flex;
-
   align-items: center;
 
   width: 110px;
   height: 37px;
 
-  flex:
-    0 0 110px;
+  flex: 0 0 110px;
 
-  padding:
-    0 10px;
+  padding: 0 10px;
 
   background:
     transparent;
 
-  overflow:
-    hidden;
-
+  overflow: hidden;
 }
 
 
 .info-group--callsign .info-data,
 .info-group--network .info-data {
-
-  justify-content:
-    flex-start;
-
-  text-align:
-    left;
-
+  justify-content: flex-start;
+  text-align: left;
 }
 
 
 .info-data--right {
-
-  justify-content:
-    flex-end;
-
-  text-align:
-    right;
-
+  justify-content: flex-end;
+  text-align: right;
 }
 
 
@@ -337,19 +488,12 @@ body {
 ========================================================= */
 
 .info-label {
+  font-size: 19px;
+  font-weight: 500;
 
-  font-size:
-    19px;
+  line-height: 1;
 
-  font-weight:
-    500;
-
-  line-height:
-    1;
-
-  white-space:
-    nowrap;
-
+  white-space: nowrap;
 }
 
 
@@ -358,31 +502,21 @@ body {
 ========================================================= */
 
 .info-value {
+  max-width: 100%;
 
-  max-width:
-    100%;
+  font-size: 18px;
+  font-weight: 600;
 
-  font-size:
-    18px;
-
-  font-weight:
-    600;
-
-  line-height:
-    1;
+  line-height: 1;
 
   color:
     var(--white);
 
-  white-space:
-    nowrap;
+  white-space: nowrap;
 
-  overflow:
-    hidden;
+  overflow: hidden;
 
-  text-overflow:
-    ellipsis;
-
+  text-overflow: ellipsis;
 }
 
 
@@ -391,37 +525,23 @@ body {
 ========================================================= */
 
 .item-icon {
+  display: block;
 
-  display:
-    block;
+  width: 24px;
+  height: 24px;
 
-  width:
-    24px;
+  flex: 0 0 24px;
 
-  height:
-    24px;
+  color: white;
 
-  flex:
-    0 0 24px;
+  fill: none;
 
-  color:
-    white;
+  stroke: currentColor;
 
-  fill:
-    none;
+  stroke-width: 1.7;
 
-  stroke:
-    currentColor;
-
-  stroke-width:
-    1.7;
-
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
-
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 
@@ -430,86 +550,59 @@ body {
 ========================================================= */
 
 .item-icon--callsign {
+  width: 26px;
+  height: 24px;
 
-  width:
-    26px;
+  flex: 0 0 26px;
 
-  height:
-    24px;
-
-  flex:
-    0 0 26px;
-
-  overflow:
-    visible;
-
+  overflow: visible;
 }
 
 
 .headset-icon {
-
-  fill:
-    none;
-
-  stroke:
-    currentColor;
-
+  fill: none;
+  stroke: currentColor;
 }
 
 
 .headset-spark {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
+  stroke-width: 1.8;
 
-  stroke-width:
-    1.8;
+  opacity: 0;
 
-  opacity:
-    0;
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
-
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 
 .headset-spark--left {
-
   animation:
     headset-spark-left
     4.8s
     linear
     infinite;
-
 }
 
 
 .headset-spark--right {
-
   animation:
     headset-spark-right
     4.8s
     linear
     infinite;
-
 }
 
 
 .headset-spark--top {
-
   animation:
     headset-spark-top
     4.8s
     linear
     infinite;
-
 }
 
 
@@ -519,25 +612,18 @@ body {
   11%,
   18%,
   100% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       scale(0.6);
-
   }
-
 
   12%,
   15% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
 }
@@ -549,25 +635,18 @@ body {
   17%,
   24%,
   100% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       scale(0.6);
-
   }
-
 
   18%,
   21% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
 }
@@ -579,25 +658,18 @@ body {
   23%,
   30%,
   100% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       scale(0.6);
-
   }
-
 
   24%,
   27% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
 }
@@ -608,77 +680,53 @@ body {
 ========================================================= */
 
 .item-icon--network {
+  width: 25px;
+  height: 25px;
 
-  width:
-    25px;
+  flex: 0 0 25px;
 
-  height:
-    25px;
-
-  flex:
-    0 0 25px;
-
-  overflow:
-    visible;
-
+  overflow: visible;
 }
 
 
 .wifi-wave {
+  fill: none;
+  stroke: currentColor;
 
-  fill:
-    none;
-
-  stroke:
-    currentColor;
-
-  opacity:
-    0.18;
-
+  opacity: 0.18;
 }
 
 
 .wifi-dot {
-
-  fill:
-    currentColor;
-
-  stroke:
-    none;
-
+  fill: currentColor;
+  stroke: none;
 }
 
 
 .wifi-wave--1 {
-
   animation:
     wifi-wave-1
     3.8s
     linear
     infinite;
-
 }
 
 
 .wifi-wave--2 {
-
   animation:
     wifi-wave-2
     3.8s
     linear
     infinite;
-
 }
 
 
 .wifi-wave--3 {
-
   animation:
     wifi-wave-3
     3.8s
     linear
     infinite;
-
 }
 
 
@@ -686,28 +734,17 @@ body {
 
   0%,
   8% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
-
 
   12%,
   58% {
-
-    opacity:
-      1;
-
+    opacity: 1;
   }
-
 
   68%,
   100% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
 
 }
@@ -717,28 +754,17 @@ body {
 
   0%,
   17% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
-
 
   22%,
   58% {
-
-    opacity:
-      1;
-
+    opacity: 1;
   }
-
 
   68%,
   100% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
 
 }
@@ -748,28 +774,17 @@ body {
 
   0%,
   27% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
-
 
   32%,
   58% {
-
-    opacity:
-      1;
-
+    opacity: 1;
   }
-
 
   68%,
   100% {
-
-    opacity:
-      0.18;
-
+    opacity: 0.18;
   }
 
 }
@@ -780,19 +795,12 @@ body {
 ========================================================= */
 
 .item-icon--phase {
+  width: 27px;
+  height: 27px;
 
-  width:
-    27px;
+  flex: 0 0 27px;
 
-  height:
-    27px;
-
-  flex:
-    0 0 27px;
-
-  overflow:
-    visible;
-
+  overflow: visible;
 }
 
 
@@ -801,28 +809,21 @@ body {
 ========================================================= */
 
 .phase-dial {
-
-  fill:
-    none;
+  fill: none;
 
   stroke:
     rgb(255 255 255 / 72%);
 
-  stroke-width:
-    1.25;
+  stroke-width: 1.25;
 
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     phase-dial-pulse
     4.6s
     ease-in-out
     infinite;
-
 }
 
 
@@ -830,18 +831,11 @@ body {
 
   0%,
   100% {
-
-    opacity:
-      0.65;
-
+    opacity: 0.65;
   }
 
-
   50% {
-
-    opacity:
-      1;
-
+    opacity: 1;
   }
 
 }
@@ -852,44 +846,29 @@ body {
 ========================================================= */
 
 .phase-horizon-group {
+  transform-box: fill-box;
+  transform-origin: center;
 
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
-
-  will-change:
-    transform;
-
+  will-change: transform;
 }
 
 
 .phase-horizon-line {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
-
-  stroke-width:
-    1.5;
-
+  stroke-width: 1.5;
 }
 
 
 .phase-horizon-mark {
-
-  fill:
-    none;
+  fill: none;
 
   stroke:
     rgb(255 255 255 / 55%);
 
-  stroke-width:
-    1;
-
+  stroke-width: 1;
 }
 
 
@@ -898,45 +877,29 @@ body {
 ========================================================= */
 
 .phase-aircraft-reference {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
+  stroke-width: 1.8;
 
-  stroke-width:
-    1.8;
-
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
-
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 
 .phase-center-dot {
+  fill: currentColor;
+  stroke: none;
 
-  fill:
-    currentColor;
-
-  stroke:
-    none;
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     phase-center-pulse
     2.6s
     ease-in-out
     infinite;
-
 }
 
 
@@ -944,24 +907,17 @@ body {
 
   0%,
   100% {
-
-    opacity:
-      0.65;
+    opacity: 0.65;
 
     transform:
       scale(0.85);
-
   }
 
-
   50% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1.15);
-
   }
 
 }
@@ -973,13 +929,11 @@ body {
 
 .info-group--phase[data-flight-phase="PREFLIGHT"]
 .phase-horizon-group {
-
   animation:
     horizon-preflight
     4s
     ease-in-out
     infinite;
-
 }
 
 
@@ -987,20 +941,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(0)
       rotate(0deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(0.5px)
       rotate(0deg);
-
   }
 
 }
@@ -1012,13 +961,11 @@ body {
 
 .info-group--phase[data-flight-phase="TAXI"]
 .phase-horizon-group {
-
   animation:
     horizon-taxi
     2.8s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1026,22 +973,17 @@ body {
 
   0%,
   100% {
-
     transform:
       translateX(-1px)
       translateY(0)
       rotate(-1deg);
-
   }
 
-
   50% {
-
     transform:
       translateX(1px)
       translateY(0.5px)
       rotate(1deg);
-
   }
 
 }
@@ -1053,13 +995,11 @@ body {
 
 .info-group--phase[data-flight-phase="TAKEOFF"]
 .phase-horizon-group {
-
   animation:
     horizon-takeoff
     3.2s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1067,20 +1007,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(1px)
       rotate(-2deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(5px)
       rotate(-6deg);
-
   }
 
 }
@@ -1092,13 +1027,11 @@ body {
 
 .info-group--phase[data-flight-phase="CLIMB"]
 .phase-horizon-group {
-
   animation:
     horizon-climb
     4s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1106,20 +1039,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(3px)
       rotate(-3deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(5px)
       rotate(-5deg);
-
   }
 
 }
@@ -1131,13 +1059,11 @@ body {
 
 .info-group--phase[data-flight-phase="CRUISE"]
 .phase-horizon-group {
-
   animation:
     horizon-cruise
     5s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1145,20 +1071,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(-0.4px)
       rotate(-0.5deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(0.4px)
       rotate(0.5deg);
-
   }
 
 }
@@ -1170,13 +1091,11 @@ body {
 
 .info-group--phase[data-flight-phase="DESCENT"]
 .phase-horizon-group {
-
   animation:
     horizon-descent
     4s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1184,20 +1103,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(-3px)
       rotate(3deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(-5px)
       rotate(5deg);
-
   }
 
 }
@@ -1209,13 +1123,11 @@ body {
 
 .info-group--phase[data-flight-phase="APPROACH"]
 .phase-horizon-group {
-
   animation:
     horizon-approach
     3.6s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1223,20 +1135,15 @@ body {
 
   0%,
   100% {
-
     transform:
       translateY(-2px)
       rotate(2deg);
-
   }
 
-
   50% {
-
     transform:
       translateY(-4px)
       rotate(4deg);
-
   }
 
 }
@@ -1248,51 +1155,38 @@ body {
 
 .info-group--phase[data-flight-phase="LANDING"]
 .phase-horizon-group {
-
   animation:
     horizon-landing
     3s
     ease-in-out
     infinite;
-
 }
 
 
 @keyframes horizon-landing {
 
   0% {
-
     transform:
       translateY(-4px)
       rotate(5deg);
-
   }
 
-
   45% {
-
     transform:
       translateY(-2px)
       rotate(2deg);
-
   }
 
-
   70% {
-
     transform:
       translateY(1px)
       rotate(0deg);
-
   }
 
-
   100% {
-
     transform:
       translateY(-4px)
       rotate(5deg);
-
   }
 
 }
@@ -1303,42 +1197,27 @@ body {
 ========================================================= */
 
 .item-icon--aircraft {
+  width: 23px;
+  height: 23px;
 
-  width:
-    23px;
+  flex: 0 0 23px;
 
-  height:
-    23px;
-
-  flex:
-    0 0 23px;
-
-  overflow:
-    hidden;
-
+  overflow: hidden;
 }
 
 
 .aircraft-animation-shape {
+  fill: currentColor;
+  stroke: none;
 
-  fill:
-    currentColor;
-
-  stroke:
-    none;
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     aircraft-rise
     5s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1346,59 +1225,40 @@ body {
 
   0%,
   10% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       translateY(9px);
-
   }
 
-
   20% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       translateY(2px);
-
   }
-
 
   30%,
   62% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       translateY(0);
-
   }
 
-
   74% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       translateY(-7px);
-
   }
-
 
   75%,
   100% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       translateY(9px);
-
   }
 
 }
@@ -1409,30 +1269,25 @@ body {
 ========================================================= */
 
 .social-strip {
-
   position: absolute;
 
-  top:
-    44px;
+  top: 44px;
 
-  z-index:
-    2;
+  z-index: 2;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    flex-start;
+  align-items: flex-start;
 
-  width:
-    473px;
-
-  height:
-    42px;
+  width: 473px;
+  height: 42px;
 
   background:
-    var(--dark);
+    var(--dark-gradient);
 
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    inset 0 -1px 0 rgb(0 0 0 / 20%);
 }
 
 
@@ -1441,12 +1296,9 @@ body {
 ========================================================= */
 
 .social-strip--left {
+  left: 0;
 
-  left:
-    0;
-
-  justify-content:
-    flex-start;
+  justify-content: flex-start;
 
   clip-path:
     polygon(
@@ -1455,25 +1307,17 @@ body {
       calc(100% - 20px) 100%,
       0 100%
     );
-
 }
 
 
 /* =========================================================
    SOCIAL STRIP — RIGHT
-
-   Important :
-   flex-end place les 63px restants côté intérieur,
-   ce qui rend le bloc parfaitement symétrique au gauche.
 ========================================================= */
 
 .social-strip--right {
+  right: 0;
 
-  right:
-    0;
-
-  justify-content:
-    flex-end;
+  justify-content: flex-end;
 
   clip-path:
     polygon(
@@ -1482,7 +1326,6 @@ body {
       100% 100%,
       20px 100%
     );
-
 }
 
 
@@ -1491,37 +1334,24 @@ body {
 ========================================================= */
 
 .social-tag {
+  position: relative;
 
-  position:
-    relative;
+  z-index: 2;
 
-  z-index:
-    2;
+  display: flex;
 
-  display:
-    flex;
+  align-items: center;
 
-  align-items:
-    center;
+  gap: 10px;
 
-  gap:
-    10px;
+  width: 182px;
+  height: 40px;
 
-  width:
-    182px;
+  flex: 0 0 182px;
 
-  height:
-    40px;
+  padding: 0 15px;
 
-  flex:
-    0 0 182px;
-
-  padding:
-    0 15px;
-
-  color:
-    white;
-
+  color: white;
 }
 
 
@@ -1530,19 +1360,12 @@ body {
 ========================================================= */
 
 .social-label {
+  font-size: 19px;
+  font-weight: 500;
 
-  font-size:
-    19px;
+  line-height: 1;
 
-  font-weight:
-    500;
-
-  line-height:
-    1;
-
-  white-space:
-    nowrap;
-
+  white-space: nowrap;
 }
 
 
@@ -1551,34 +1374,22 @@ body {
 ========================================================= */
 
 .social-data {
+  position: relative;
 
-  position:
-    relative;
+  z-index: 1;
 
-  z-index:
-    1;
+  display: flex;
 
-  display:
-    flex;
+  align-items: center;
 
-  align-items:
-    center;
+  width: 228px;
+  height: 40px;
 
-  width:
-    228px;
+  flex: 0 0 228px;
 
-  height:
-    40px;
+  padding: 0 8px;
 
-  flex:
-    0 0 228px;
-
-  padding:
-    0 8px;
-
-  overflow:
-    hidden;
-
+  overflow: hidden;
 }
 
 
@@ -1587,13 +1398,9 @@ body {
 ========================================================= */
 
 .social-data--left {
+  justify-content: flex-start;
 
-  justify-content:
-    flex-start;
-
-  text-align:
-    left;
-
+  text-align: left;
 }
 
 
@@ -1602,13 +1409,9 @@ body {
 ========================================================= */
 
 .social-data--right {
+  justify-content: flex-end;
 
-  justify-content:
-    flex-end;
-
-  text-align:
-    right;
-
+  text-align: right;
 }
 
 
@@ -1617,31 +1420,20 @@ body {
 ========================================================= */
 
 .social-value {
+  max-width: 100%;
 
-  max-width:
-    100%;
+  color: white;
 
-  color:
-    white;
+  font-size: 19px;
+  font-weight: 600;
 
-  font-size:
-    19px;
+  line-height: 1;
 
-  font-weight:
-    600;
+  white-space: nowrap;
 
-  line-height:
-    1;
+  overflow: hidden;
 
-  white-space:
-    nowrap;
-
-  overflow:
-    hidden;
-
-  text-overflow:
-    ellipsis;
-
+  text-overflow: ellipsis;
 }
 
 
@@ -1650,34 +1442,21 @@ body {
 ========================================================= */
 
 .social-icon {
+  width: 23px;
+  height: 23px;
 
-  width:
-    23px;
+  flex: 0 0 23px;
 
-  height:
-    23px;
+  fill: none;
 
-  flex:
-    0 0 23px;
+  stroke: currentColor;
 
-  fill:
-    none;
+  stroke-width: 1.7;
 
-  stroke:
-    currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-  stroke-width:
-    1.7;
-
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
-
-  overflow:
-    visible;
-
+  overflow: visible;
 }
 
 
@@ -1686,7 +1465,6 @@ body {
 ========================================================= */
 
 .social-tag--follower {
-
   background:
     var(--blue);
 
@@ -1697,7 +1475,6 @@ body {
       calc(100% - 18px) 100%,
       0 100%
     );
-
 }
 
 
@@ -1706,25 +1483,18 @@ body {
 ========================================================= */
 
 .follower-ring {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     follower-ring-pulse
     4.8s
     ease-out
     infinite;
-
 }
 
 
@@ -1732,36 +1502,25 @@ body {
 
   0%,
   8% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
-
   15% {
-
-    opacity:
-      0.45;
+    opacity: 0.45;
 
     transform:
       scale(1.18);
-
   }
-
 
   22%,
   100% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
 }
@@ -1772,19 +1531,14 @@ body {
 ========================================================= */
 
 .follower-plus {
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     follower-plus-animation
     4.8s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1792,52 +1546,37 @@ body {
 
   0%,
   6% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       scale(0.4)
       rotate(-90deg);
-
   }
 
-
   13% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1.15)
       rotate(8deg);
-
   }
-
 
   19%,
   82% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1)
       rotate(0deg);
-
   }
-
 
   90%,
   100% {
-
-    opacity:
-      0;
+    opacity: 0;
 
     transform:
       scale(0.6)
       rotate(45deg);
-
   }
 
 }
@@ -1848,12 +1587,9 @@ body {
 ========================================================= */
 
 .social-tag--subscriber {
+  order: 2;
 
-  order:
-    2;
-
-  justify-content:
-    flex-end;
+  justify-content: flex-end;
 
   background:
     var(--green);
@@ -1865,24 +1601,11 @@ body {
       100% 100%,
       18px 100%
     );
-
 }
 
 
-/*
-  Côté droit :
-
-  [ espace ][ DATA ][ TAG ]
-
-  Grâce au justify-content:flex-end du parent,
-  l'espace libre reste bien côté intérieur.
-*/
-
 .social-strip--right .social-data {
-
-  order:
-    1;
-
+  order: 1;
 }
 
 
@@ -1891,25 +1614,18 @@ body {
 ========================================================= */
 
 .subscriber-ring {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
-
-  transform-box:
-    fill-box;
-
-  transform-origin:
-    center;
+  transform-box: fill-box;
+  transform-origin: center;
 
   animation:
     subscriber-ring-pulse
     5.2s
     ease-out
     infinite;
-
 }
 
 
@@ -1917,36 +1633,25 @@ body {
 
   0%,
   10% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
-
   17% {
-
-    opacity:
-      0.5;
+    opacity: 0.5;
 
     transform:
       scale(1.16);
-
   }
-
 
   24%,
   100% {
-
-    opacity:
-      1;
+    opacity: 1;
 
     transform:
       scale(1);
-
   }
 
 }
@@ -1957,34 +1662,23 @@ body {
 ========================================================= */
 
 .subscriber-check {
+  fill: none;
 
-  fill:
-    none;
+  stroke: currentColor;
 
-  stroke:
-    currentColor;
+  stroke-width: 1.8;
 
-  stroke-width:
-    1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
-
-  stroke-dasharray:
-    14;
-
-  stroke-dashoffset:
-    0;
+  stroke-dasharray: 14;
+  stroke-dashoffset: 0;
 
   animation:
     subscriber-check-draw
     5.2s
     ease-in-out
     infinite;
-
 }
 
 
@@ -1992,37 +1686,23 @@ body {
 
   0%,
   8% {
+    opacity: 0;
 
-    opacity:
-      0;
-
-    stroke-dashoffset:
-      14;
-
+    stroke-dashoffset: 14;
   }
-
 
   20%,
   82% {
+    opacity: 1;
 
-    opacity:
-      1;
-
-    stroke-dashoffset:
-      0;
-
+    stroke-dashoffset: 0;
   }
-
 
   90%,
   100% {
+    opacity: 0;
 
-    opacity:
-      0;
-
-    stroke-dashoffset:
-      14;
-
+    stroke-dashoffset: 14;
   }
 
 }
@@ -2033,31 +1713,27 @@ body {
 ========================================================= */
 
 .airport {
+  position: absolute;
 
-  position:
-    absolute;
+  top: -4px;
 
-  top:
-    -4px;
-
-  z-index:
-    3;
+  z-index: 3;
 
   width:
     var(--airport-width);
 
-  height:
-    50px;
+  height: 50px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    center;
+  align-items: center;
 
   background:
-    var(--dark);
+    var(--dark-gradient);
 
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    inset 0 -1px 0 rgb(0 0 0 / 20%);
 }
 
 
@@ -2066,12 +1742,9 @@ body {
 ========================================================= */
 
 .airport-face {
+  position: absolute;
 
-  position:
-    absolute;
-
-  z-index:
-    -1;
+  z-index: -1;
 
   inset:
     var(--airport-border);
@@ -2083,7 +1756,6 @@ body {
       #ffffff 42%,
       #e2e5e7 100%
     );
-
 }
 
 
@@ -2092,25 +1764,16 @@ body {
 ========================================================= */
 
 .airport-content {
+  position: relative;
 
-  position:
-    relative;
+  z-index: 2;
 
-  z-index:
-    2;
+  display: flex;
 
-  display:
-    flex;
+  align-items: center;
 
-  align-items:
-    center;
-
-  width:
-    100%;
-
-  height:
-    100%;
-
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -2119,25 +1782,17 @@ body {
 ========================================================= */
 
 .airport-text {
+  display: flex;
 
-  display:
-    flex;
+  flex-direction: column;
 
-  flex-direction:
-    column;
+  justify-content: center;
 
-  justify-content:
-    center;
+  gap: 0;
 
-  gap:
-    0;
+  line-height: 1;
 
-  line-height:
-    1;
-
-  white-space:
-    nowrap;
-
+  white-space: nowrap;
 }
 
 
@@ -2146,19 +1801,13 @@ body {
 ========================================================= */
 
 .airport-label {
-
   color:
     var(--blue);
 
-  font-size:
-    20px;
+  font-size: 20px;
+  font-weight: 500;
 
-  font-weight:
-    500;
-
-  line-height:
-    1;
-
+  line-height: 1;
 }
 
 
@@ -2167,25 +1816,17 @@ body {
 ========================================================= */
 
 .airport-code {
-
-  margin-top:
-    -2px;
+  margin-top: -2px;
 
   color:
     var(--dark);
 
-  font-size:
-    20px;
+  font-size: 20px;
+  font-weight: 600;
 
-  font-weight:
-    600;
+  line-height: 1;
 
-  line-height:
-    1;
-
-  letter-spacing:
-    0.3px;
-
+  letter-spacing: 0.3px;
 }
 
 
@@ -2194,32 +1835,22 @@ body {
 ========================================================= */
 
 .airport-flag {
+  display: block;
 
-  display:
-    block;
+  width: 30px;
+  height: 20px;
 
-  width:
-    30px;
+  flex: 0 0 30px;
 
-  height:
-    20px;
+  overflow: hidden;
 
-  flex:
-    0 0 30px;
+  border-radius: 2px;
 
-  overflow:
-    hidden;
-
-  border-radius:
-    2px;
-
-  object-fit:
-    cover;
+  object-fit: cover;
 
   box-shadow:
     0 0 0 1px
     rgb(0 0 0 / 10%);
-
 }
 
 
@@ -2228,7 +1859,6 @@ body {
 ========================================================= */
 
 .airport--departure {
-
   left:
     calc(
       var(--center-x)
@@ -2244,12 +1874,10 @@ body {
       100% 100%,
       16px 100%
     );
-
 }
 
 
 .airport--departure .airport-face {
-
   clip-path:
     polygon(
       0 0,
@@ -2257,32 +1885,23 @@ body {
       100% 100%,
       13px 100%
     );
-
 }
 
 
 .airport--departure .airport-content {
+  justify-content: flex-start;
 
-  justify-content:
-    flex-start;
-
-  gap:
-    14px;
+  gap: 14px;
 
   padding:
     0 74px 0 24px;
-
 }
 
 
 .airport--departure .airport-text {
+  align-items: flex-start;
 
-  align-items:
-    flex-start;
-
-  text-align:
-    left;
-
+  text-align: left;
 }
 
 
@@ -2291,7 +1910,6 @@ body {
 ========================================================= */
 
 .airport--arrival {
-
   left:
     calc(
       var(--center-x)
@@ -2306,12 +1924,10 @@ body {
       calc(100% - 16px) 100%,
       0 100%
     );
-
 }
 
 
 .airport--arrival .airport-face {
-
   clip-path:
     polygon(
       0 0,
@@ -2319,32 +1935,23 @@ body {
       calc(100% - 13px) 100%,
       0 100%
     );
-
 }
 
 
 .airport--arrival .airport-content {
+  justify-content: flex-end;
 
-  justify-content:
-    flex-end;
-
-  gap:
-    14px;
+  gap: 14px;
 
   padding:
     0 24px 0 74px;
-
 }
 
 
 .airport--arrival .airport-text {
+  align-items: flex-end;
 
-  align-items:
-    flex-end;
-
-  text-align:
-    right;
-
+  text-align: right;
 }
 
 
@@ -2353,28 +1960,20 @@ body {
 ========================================================= */
 
 .center-module {
+  position: absolute;
 
-  position:
-    absolute;
+  z-index: 4;
 
-  z-index:
-    4;
-
-  top:
-    0;
+  top: 0;
 
   left:
     var(--center-x);
 
-  width:
-    276px;
-
-  height:
-    110px;
+  width: 276px;
+  height: 110px;
 
   transform:
     translateX(-50%);
-
 }
 
 
@@ -2383,21 +1982,14 @@ body {
 ========================================================= */
 
 .center-face {
+  position: absolute;
 
-  position:
-    absolute;
+  inset: 0;
 
-  inset:
-    0;
+  width: 100%;
+  height: 100%;
 
-  width:
-    100%;
-
-  height:
-    100%;
-
-  overflow:
-    hidden;
+  overflow: hidden;
 
   filter:
     drop-shadow(
@@ -2406,7 +1998,6 @@ body {
       7px
       rgb(0 0 0 / 20%)
     );
-
 }
 
 
@@ -2415,31 +2006,19 @@ body {
 ========================================================= */
 
 .progress {
+  position: absolute;
 
-  position:
-    absolute;
+  top: 0;
+  left: 0;
 
-  top:
-    0;
+  z-index: 4;
 
-  left:
-    0;
+  width: 276px;
+  height: 110px;
 
-  z-index:
-    4;
+  overflow: visible;
 
-  width:
-    276px;
-
-  height:
-    110px;
-
-  overflow:
-    visible;
-
-  pointer-events:
-    none;
-
+  pointer-events: none;
 }
 
 
@@ -2448,19 +2027,14 @@ body {
 ========================================================= */
 
 .progress-track {
-
-  fill:
-    none;
+  fill: none;
 
   stroke:
     rgb(255 255 255 / 28%);
 
-  stroke-width:
-    3;
+  stroke-width: 3;
 
-  stroke-linecap:
-    round;
-
+  stroke-linecap: round;
 }
 
 
@@ -2469,24 +2043,17 @@ body {
 ========================================================= */
 
 .progress-value {
-
-  fill:
-    none;
+  fill: none;
 
   stroke:
     var(--blue-light);
 
-  stroke-width:
-    3;
+  stroke-width: 3;
 
-  stroke-linecap:
-    round;
+  stroke-linecap: round;
 
-  stroke-dasharray:
-    100;
-
-  stroke-dashoffset:
-    100;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
 
   filter:
     drop-shadow(
@@ -2505,7 +2072,6 @@ body {
       0.36,
       1
     );
-
 }
 
 
@@ -2514,15 +2080,13 @@ body {
 ========================================================= */
 
 .progress-endpoint {
-
   fill:
     var(--blue);
 
   stroke:
     var(--blue);
 
-  stroke-width:
-    1.5;
+  stroke-width: 1.5;
 
   filter:
     drop-shadow(
@@ -2531,7 +2095,6 @@ body {
       4px
       rgb(0 159 227 / 75%)
     );
-
 }
 
 
@@ -2540,74 +2103,47 @@ body {
 ========================================================= */
 
 .progress-percent {
+  position: absolute;
 
-  position:
-    absolute;
+  z-index: 5;
 
-  z-index:
-    5;
+  top: 0;
+  left: 50%;
 
-  top:
-    0;
+  display: flex;
 
-  left:
-    50%;
+  align-items: baseline;
+  justify-content: center;
 
-  display:
-    flex;
-
-  align-items:
-    baseline;
-
-  justify-content:
-    center;
-
-  min-width:
-    60px;
+  min-width: 60px;
 
   transform:
     translateX(-50%);
 
-  color:
-    white;
+  color: white;
 
-  text-align:
-    center;
-
+  text-align: center;
 }
 
 
 .progress-percent strong {
+  font-size: 22px;
+  font-weight: 700;
 
-  font-size:
-    22px;
-
-  font-weight:
-    700;
-
-  line-height:
-    1;
-
+  line-height: 1;
 }
 
 
 .progress-percent span {
+  margin-left: 2px;
 
-  margin-left:
-    2px;
+  font-size: 20px;
+  font-weight: 600;
 
-  font-size:
-    20px;
-
-  font-weight:
-    600;
-
-  line-height:
-    1;
+  line-height: 1;
 
   color:
     rgb(255 255 255 / 65%);
-
 }
 
 
@@ -2616,29 +2152,18 @@ body {
 ========================================================= */
 
 .center-logo {
+  position: absolute;
 
-  position:
-    absolute;
+  z-index: 3;
 
-  z-index:
-    3;
+  top: 30px;
+  left: 50%;
 
-  top:
-    30px;
+  width: 56px;
+  height: 61px;
 
-  left:
-    50%;
-
-  width:
-    56px;
-
-  height:
-    61px;
-
-  object-fit:
-    contain;
+  object-fit: contain;
 
   transform:
     translateX(-50%);
-
 }
