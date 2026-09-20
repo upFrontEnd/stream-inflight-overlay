@@ -1,5 +1,5 @@
 # Stream Inflight Overlay
-
+![Aperçu de l’overlay](img/overlay.png)
 Overlay de vol pour OBS construit en HTML, JavaScript et SCSS.
 
 ## Stack
@@ -53,3 +53,5 @@ scss/
   _animations.scss
   style.scss
 ```
+
+

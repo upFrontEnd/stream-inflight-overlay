@@ -316,33 +316,55 @@
 ========================================================= */
 
 .aircraft-animation-shape {
-  animation: aircraft-rise 10s ease-in-out infinite;
+  animation:
+    aircraft-rise
+    14s
+    ease-in-out
+    infinite;
 }
 
 @keyframes aircraft-rise {
-  0%, 6% {
+  0%,
+  5% {
     opacity: 0;
-    transform: translateY(9px);
+
+    transform:
+      translateY(8px)
+      scale(.94);
   }
 
   10% {
     opacity: 1;
-    transform: translateY(3px);
+
+    transform:
+      translateY(0)
+      scale(1);
   }
 
-  15%, 24% {
+  10%,
+  62% {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0)
+      scale(1);
   }
 
-  31% {
+  68% {
     opacity: 0;
-    transform: translateY(-8px);
+
+    transform:
+      translateY(-7px)
+      scale(.96);
   }
 
-  32%, 100% {
+  69%,
+  100% {
     opacity: 0;
-    transform: translateY(9px);
+
+    transform:
+      translateY(8px)
+      scale(.94);
   }
 }
 

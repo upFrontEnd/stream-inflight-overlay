@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "bunx --bun vite --open",
     "build": "bunx --bun vite build",
-    "preview": "bunx --bun vite preview --open"
+    "preview": "bunx --bun vite preview --open",
+    "capture:overlay": "bun scripts/capture-overlay.mjs"
   },
   "devDependencies": {
+    "playwright": "^1.63.0",
     "sass": "^1.104.1",
     "vite": "^8.3.0"
   }
