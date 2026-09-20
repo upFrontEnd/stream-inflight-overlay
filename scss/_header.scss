@@ -1,0 +1,292 @@
+@use "variables" as *;
+
+.top-rail {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 38px;
+  background: $dark-gradient;
+
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    inset 0 -1px 0 rgb(0 0 0 / 18%);
+}
+
+.cyan-line {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 4px;
+
+  overflow: hidden;
+  background: $blue;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+
+    width: 120px;
+    height: 100%;
+
+    opacity: 0;
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(74 199 255 / 8%) 18%,
+      rgb(170 228 255 / 28%) 38%,
+      rgb(230 248 255 / 55%) 50%,
+      rgb(170 228 255 / 28%) 62%,
+      rgb(74 199 255 / 8%) 82%,
+      transparent 100%
+    );
+
+    filter: blur(.25px);
+  }
+
+  &::before {
+    left: -120px;
+    animation: cyan-glow-left 9s ease-in-out infinite;
+  }
+
+  &::after {
+    right: -120px;
+    animation: cyan-glow-right 9s ease-in-out infinite;
+  }
+}
+
+.lower-rail {
+  position: absolute;
+  top: 42px;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: $dark-gradient;
+}
+
+.info-group {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+
+  display: flex;
+  align-items: stretch;
+
+  width: 290px;
+  height: 37px;
+
+  &--callsign {
+    left: 0;
+  }
+
+  &--network {
+    left: 290px;
+  }
+
+  &--phase {
+    right: 290px;
+  }
+
+  &--aircraft {
+    right: 0;
+  }
+
+  &--callsign .info-data,
+  &--network .info-data {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+.info-tag {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 180px;
+  height: 37px;
+  flex: 0 0 180px;
+
+  padding: 0 15px;
+  color: $white;
+
+  background: linear-gradient(
+    180deg,
+    #49bdf1 0%,
+    #14abe9 24%,
+    $blue 55%,
+    #0089c7 100%
+  );
+
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 25%),
+    inset 0 -2px 0 rgb(0 0 0 / 10%);
+
+  &--callsign,
+  &--network {
+    clip-path: polygon(
+      0 0,
+      164px 0,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  &--phase,
+  &--aircraft {
+    clip-path: polygon(
+      16px 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+  }
+}
+
+.info-data {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
+  width: 110px;
+  height: 37px;
+  flex: 0 0 110px;
+
+  padding: 0 10px;
+  overflow: hidden;
+
+  &--right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
+
+.info-label {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.info-value {
+  max-width: 100%;
+
+  overflow: hidden;
+
+  color: $white;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.item-icon {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+
+  color: $white;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  &--callsign {
+    width: 26px;
+    height: 24px;
+    flex-basis: 26px;
+    overflow: visible;
+  }
+
+  &--network {
+    width: 25px;
+    height: 25px;
+    flex-basis: 25px;
+    overflow: visible;
+  }
+
+  &--phase {
+    width: 27px;
+    height: 27px;
+    flex-basis: 27px;
+    overflow: visible;
+  }
+
+  &--aircraft {
+    width: 23px;
+    height: 23px;
+    flex-basis: 23px;
+    overflow: hidden;
+  }
+}
+
+.headset-icon,
+.wifi-wave,
+.phase-dial,
+.phase-horizon-line,
+.phase-horizon-mark,
+.phase-aircraft-reference {
+  fill: none;
+  stroke: currentColor;
+}
+
+.wifi-wave {
+  opacity: .18;
+}
+
+.wifi-dot,
+.phase-center-dot,
+.aircraft-animation-shape {
+  fill: currentColor;
+  stroke: none;
+}
+
+.phase-dial {
+  stroke: rgb(255 255 255 / 72%);
+  stroke-width: 1.25;
+}
+
+.phase-horizon-group,
+.phase-center-dot,
+.aircraft-animation-shape {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.phase-horizon-group {
+  will-change: transform;
+}
+
+.phase-horizon-line {
+  stroke-width: 1.5;
+}
+
+.phase-horizon-mark {
+  stroke: rgb(255 255 255 / 55%);
+  stroke-width: 1;
+}
+
+.phase-aircraft-reference {
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
