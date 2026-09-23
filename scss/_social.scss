@@ -11,11 +11,20 @@
   width: 473px;
   height: 42px;
 
-  background: $dark-gradient;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgb(255 255 255 / 4%) 0px,
+      rgb(255 255 255 / 4%) 1px,
+      rgb(0 0 0 / 4%) 1px,
+      rgb(0 0 0 / 4%) 2px
+    ),
+    $metal-gradient;
 
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 7%),
-    inset 0 -1px 0 rgb(0 0 0 / 20%);
+    inset 0 1px 0 rgb(255 255 255 / 15%),
+    inset 0 -1px 0 rgb(0 0 0 / 25%),
+    inset 0 2px 3px rgb(0 0 0 / 15%);
 
   &--left {
     left: 0;

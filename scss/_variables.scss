@@ -20,3 +20,15 @@ $dark-gradient: linear-gradient(
   $dark 58%,
   $dark-deep 100%
 );
+
+$metal-gradient: linear-gradient(
+  180deg,
+  #4a5761 0%,
+  $dark-light 10%,
+  #2f3a42 24%,
+  $dark 42%,
+  #232b31 55%,
+  $dark 68%,
+  $dark-light 84%,
+  $dark-deep 100%
+);
