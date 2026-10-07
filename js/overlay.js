@@ -1065,6 +1065,110 @@
 
 
   /* =========================================================
+     SIMBRIEF INTEGRATION
+  ========================================================= */
+
+  const SIMBRIEF_API =
+    "https://www.simbrief.com/api/xml.fetcher.php";
+
+  const SIMBRIEF_POLL_INTERVAL =
+    30_000;
+
+  let lastSimBriefReleaseId =
+    null;
+
+
+  function getSimBriefUsername() {
+
+    return new URLSearchParams(
+      window.location.search
+    ).get("simbrief") || "";
+
+  }
+
+
+  async function syncSimBrief() {
+
+    const username =
+      getSimBriefUsername();
+
+    if (!username) {
+      return;
+    }
+
+
+    try {
+
+      const url =
+        `${SIMBRIEF_API}?username=${encodeURIComponent(username)}&json=1`;
+
+      const response =
+        await fetch(url);
+
+      if (!response.ok) {
+        return;
+      }
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        data?.fetch?.status !==
+        "Success"
+      ) {
+        return;
+      }
+
+
+      const releaseId =
+        data?.general?.release;
+
+
+      if (
+        releaseId ===
+        lastSimBriefReleaseId
+      ) {
+        return;
+      }
+
+
+      lastSimBriefReleaseId =
+        releaseId;
+
+
+      setAirports({
+        departure:
+          data?.origin?.icao_code,
+        arrival:
+          data?.destination?.icao_code
+      });
+
+    } catch {
+      /* silent — pas de réseau = pas de mise à jour */
+    }
+
+  }
+
+
+  function startSimBriefPolling() {
+
+    if (!getSimBriefUsername()) {
+      return;
+    }
+
+    syncSimBrief();
+
+    setInterval(
+      syncSimBrief,
+      SIMBRIEF_POLL_INTERVAL
+    );
+
+  }
+
+
+  /* =========================================================
      RESIZE
   ========================================================= */
 
@@ -1100,5 +1204,7 @@
   ========================================================= */
 
   init();
+
+  startSimBriefPolling();
 
 })();
