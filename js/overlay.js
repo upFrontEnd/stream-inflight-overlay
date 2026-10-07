@@ -1080,9 +1080,13 @@
 
   function getSimBriefUsername() {
 
-    return new URLSearchParams(
-      window.location.search
-    ).get("simbrief") || "";
+    return (
+      new URLSearchParams(
+        window.location.search
+      ).get("simbrief") ||
+      import.meta.env.VITE_SIMBRIEF_USERNAME ||
+      ""
+    );
 
   }
 
