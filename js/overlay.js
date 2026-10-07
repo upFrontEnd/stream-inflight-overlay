@@ -67,11 +67,259 @@
 
 
   const FALLBACK_AIRPORT_COUNTRIES = {
-
     LFPG: "FR",
     KJFK: "US"
-
   };
+
+
+  /*
+    ICAO prefix → ISO 3166-1 alpha-2 country code.
+    Ordered from most specific (4 chars) to least (1 char)
+    so the lookup tries longer prefixes first.
+  */
+
+  const ICAO_PREFIX_COUNTRY = [
+
+    /* ── North America ─────────────────────── */
+    ["PAJ", "US"], ["PAK", "US"], ["PAL", "US"],
+    ["PAM", "US"], ["PAN", "US"], ["PAO", "US"],
+    ["PAP", "HT"],
+    ["PA",  "US"], // Alaska
+    ["PH",  "US"], // Hawaii
+    ["PG",  "GU"], // Guam
+    ["K",   "US"],
+    ["CY",  "CA"], ["CZ",  "CA"],
+    ["CU",  "CU"],
+    ["C",   "CA"],
+    ["MB",  "BS"], // Bahamas
+    ["MD",  "DO"], // Dominican Republic
+    ["MH",  "HN"], // Honduras
+    ["MK",  "JM"], // Jamaica
+    ["MM",  "MX"], // Mexico
+    ["MN",  "NI"], // Nicaragua
+    ["MP",  "PA"], // Panama
+    ["MR",  "CR"], // Costa Rica
+    ["MS",  "SV"], // El Salvador
+    ["MT",  "HT"], // Haiti
+    ["MU",  "CU"], // Cuba
+    ["MW",  "KY"], // Cayman Islands
+    ["MX",  "MX"],
+    ["MY",  "BS"],
+    ["MZ",  "BZ"], // Belize
+    ["M",   "MX"],
+    ["SA",  "AR"], // Argentina
+    ["SB",  "BR"], // Brazil
+    ["SC",  "CL"], // Chile
+    ["SE",  "EC"], // Ecuador
+    ["SF",  "FK"], // Falkland Islands
+    ["SG",  "PY"], // Paraguay
+    ["SK",  "CO"], // Colombia
+    ["SL",  "BO"], // Bolivia
+    ["SM",  "SR"], // Suriname
+    ["SO",  "GF"], // French Guiana
+    ["SP",  "PE"], // Peru
+    ["SU",  "UY"], // Uruguay
+    ["SV",  "VE"], // Venezuela
+    ["SW",  "BR"],
+    ["SY",  "GY"], // Guyana
+    ["T",   "TT"], // Caribbean (approx)
+    ["TF",  "GP"], // Guadeloupe
+    ["TI",  "VI"], // US Virgin Islands
+    ["TJ",  "PR"], // Puerto Rico
+    ["TK",  "KN"], // Saint Kitts
+    ["TL",  "LC"], // Saint Lucia
+    ["TN",  "AN"], // Netherlands Antilles
+    ["TQ",  "AI"], // Anguilla
+    ["TT",  "TT"], // Trinidad
+    ["TV",  "VC"], // Saint Vincent
+    ["TX",  "BM"], // Bermuda
+
+    /* ── Europe ────────────────────────────── */
+    ["LA",  "AL"], // Albania
+    ["LB",  "BG"], // Bulgaria
+    ["LC",  "CY"], // Cyprus
+    ["LD",  "HR"], // Croatia
+    ["LE",  "ES"], // Spain
+    ["LF",  "FR"], // France
+    ["LG",  "GR"], // Greece
+    ["LH",  "HU"], // Hungary
+    ["LI",  "IT"], // Italy
+    ["LJ",  "SI"], // Slovenia
+    ["LK",  "CZ"], // Czech Republic
+    ["LL",  "IL"], // Israel
+    ["LM",  "MT"], // Malta
+    ["LN",  "MC"], // Monaco
+    ["LO",  "AT"], // Austria
+    ["LP",  "PT"], // Portugal
+    ["LQ",  "BA"], // Bosnia
+    ["LR",  "RO"], // Romania
+    ["LS",  "CH"], // Switzerland
+    ["LT",  "TR"], // Turkey
+    ["LU",  "MD"], // Moldova
+    ["LW",  "MK"], // North Macedonia
+    ["LX",  "GI"], // Gibraltar
+    ["LY",  "RS"], // Serbia
+    ["LZ",  "SK"], // Slovakia
+    ["EB",  "BE"], // Belgium
+    ["ED",  "DE"], // Germany (civil)
+    ["EH",  "NL"], // Netherlands
+    ["EI",  "IE"], // Ireland
+    ["EK",  "DK"], // Denmark
+    ["EL",  "LU"], // Luxembourg
+    ["EN",  "NO"], // Norway
+    ["EP",  "PL"], // Poland
+    ["ES",  "SE"], // Sweden
+    ["ET",  "DE"], // Germany (military)
+    ["EV",  "LV"], // Latvia
+    ["EY",  "LT"], // Lithuania
+    ["EE",  "EE"], // Estonia
+    ["EF",  "FI"], // Finland
+    ["EG",  "GB"], // United Kingdom
+    ["EK",  "DK"],
+    ["UK",  "UA"], // Ukraine
+    ["UM",  "BY"], // Belarus
+    ["UU",  "RU"], // Russia (western)
+    ["UL",  "RU"],
+    ["UE",  "RU"],
+    ["UI",  "RU"],
+    ["UN",  "RU"],
+    ["US",  "RU"],
+    ["UT",  "TJ"], // Tajikistan (approx Central Asia)
+    ["UB",  "AZ"], // Azerbaijan
+    ["UG",  "GE"], // Georgia
+    ["UC",  "KG"], // Kyrgyzstan
+    ["UD",  "AM"], // Armenia
+    ["UO",  "RU"],
+    ["UH",  "RU"],
+    ["U",   "RU"],
+
+    /* ── Middle East & Africa ───────────────── */
+    ["OA",  "AF"], // Afghanistan
+    ["OB",  "BH"], // Bahrain
+    ["OE",  "SA"], // Saudi Arabia
+    ["OI",  "IR"], // Iran
+    ["OJ",  "JO"], // Jordan
+    ["OK",  "KW"], // Kuwait
+    ["OL",  "LB"], // Lebanon
+    ["OM",  "AE"], // UAE
+    ["OO",  "SA"],
+    ["OP",  "PK"], // Pakistan
+    ["OR",  "IQ"], // Iraq
+    ["OS",  "SY"], // Syria
+    ["OT",  "QA"], // Qatar
+    ["OY",  "YE"], // Yemen
+    ["O",   "IR"],
+    ["DA",  "DZ"], // Algeria
+    ["DB",  "BJ"], // Benin
+    ["DF",  "BF"], // Burkina Faso
+    ["DG",  "GH"], // Ghana
+    ["DI",  "CI"], // Côte d'Ivoire
+    ["DN",  "NG"], // Nigeria
+    ["DR",  "NE"], // Niger
+    ["DT",  "TN"], // Tunisia
+    ["DX",  "TG"], // Togo
+    ["FA",  "ZA"], // South Africa
+    ["FB",  "BW"], // Botswana
+    ["FC",  "CG"], // Republic of Congo
+    ["FD",  "SZ"], // Eswatini
+    ["FE",  "CF"], // Central African Republic
+    ["FG",  "GQ"], // Equatorial Guinea
+    ["FH",  "SH"], // Saint Helena
+    ["FI",  "IO"], // BIOT
+    ["FJ",  "IO"],
+    ["FK",  "CM"], // Cameroon
+    ["FL",  "ZM"], // Zambia
+    ["FM",  "MG"], // Madagascar
+    ["FN",  "AO"], // Angola
+    ["FO",  "GA"], // Gabon
+    ["FP",  "ST"], // São Tomé
+    ["FQ",  "MZ"], // Mozambique
+    ["FS",  "SC"], // Seychelles
+    ["FT",  "TD"], // Chad
+    ["FV",  "ZW"], // Zimbabwe
+    ["FW",  "MW"], // Malawi
+    ["FX",  "LS"], // Lesotho
+    ["FY",  "NA"], // Namibia
+    ["FZ",  "CD"], // DR Congo
+    ["GA",  "ML"], // Mali
+    ["GB",  "GM"], // Gambia
+    ["GC",  "ES"], // Canary Islands
+    ["GE",  "ES"],
+    ["GF",  "SL"], // Sierra Leone
+    ["GG",  "GW"], // Guinea-Bissau
+    ["GL",  "LR"], // Liberia
+    ["GM",  "MA"], // Morocco
+    ["GO",  "SN"], // Senegal
+    ["GQ",  "MR"], // Mauritania
+    ["GS",  "EH"], // Western Sahara
+    ["GU",  "GN"], // Guinea
+    ["GV",  "CV"], // Cape Verde
+    ["HA",  "ET"], // Ethiopia
+    ["HB",  "SO"], // Somalia
+    ["HC",  "SO"],
+    ["HD",  "SO"],
+    ["HE",  "EG"], // Egypt
+    ["HH",  "ER"], // Eritrea
+    ["HK",  "KE"], // Kenya
+    ["HL",  "LY"], // Libya
+    ["HR",  "RW"], // Rwanda
+    ["HS",  "SD"], // Sudan
+    ["HT",  "TZ"], // Tanzania
+    ["HU",  "UG"], // Uganda
+
+    /* ── Asia Pacific ───────────────────────── */
+    ["NZ",  "NZ"], // New Zealand
+    ["NS",  "WS"], // Samoa
+    ["NF",  "FJ"], // Fiji
+    ["NT",  "PF"], // French Polynesia
+    ["NW",  "NC"], // New Caledonia
+    ["VH",  "AU"], // Australia
+    ["Y",   "AU"],
+    ["WA",  "ID"], // Indonesia
+    ["WB",  "BN"], // Brunei / Malaysia
+    ["WI",  "ID"],
+    ["WM",  "MY"], // Malaysia
+    ["WP",  "TL"], // Timor-Leste
+    ["WQ",  "ID"],
+    ["WS",  "SG"], // Singapore
+    ["VB",  "MM"], // Myanmar
+    ["VC",  "LK"], // Sri Lanka
+    ["VD",  "KH"], // Cambodia
+    ["VE",  "IN"], // India (east)
+    ["VG",  "BD"], // Bangladesh
+    ["VH",  "HK"], // Hong Kong (overlap handled above)
+    ["VI",  "IN"], // India (north)
+    ["VL",  "LA"], // Laos
+    ["VM",  "MO"], // Macau
+    ["VN",  "NP"], // Nepal
+    ["VO",  "IN"], // India (south)
+    ["VQ",  "BT"], // Bhutan
+    ["VR",  "MV"], // Maldives
+    ["VT",  "TH"], // Thailand
+    ["VV",  "VN"], // Vietnam
+    ["VY",  "MM"],
+    ["ZB",  "CN"], // China
+    ["ZG",  "CN"],
+    ["ZH",  "CN"],
+    ["ZJ",  "CN"],
+    ["ZK",  "CN"],
+    ["ZL",  "CN"],
+    ["ZM",  "CN"],
+    ["ZP",  "CN"],
+    ["ZS",  "CN"],
+    ["ZU",  "CN"],
+    ["ZW",  "CN"],
+    ["ZY",  "CN"],
+    ["Z",   "CN"],
+    ["RK",  "KR"], // South Korea
+    ["RJ",  "JP"], // Japan
+    ["RO",  "JP"],
+    ["RP",  "PH"], // Philippines
+    ["RC",  "TW"], // Taiwan
+    ["RB",  "KR"],
+    ["VD",  "KH"],
+    ["VL",  "LA"],
+  ];
 
 
   const VALID_FLIGHT_PHASES =
@@ -334,12 +582,21 @@
     }
 
 
-    return (
-      FALLBACK_AIRPORT_COUNTRIES[
-        normalizedICAO
-      ] ||
-      ""
-    );
+    if (FALLBACK_AIRPORT_COUNTRIES[normalizedICAO]) {
+      return FALLBACK_AIRPORT_COUNTRIES[normalizedICAO];
+    }
+
+
+    for (const [prefix, country] of ICAO_PREFIX_COUNTRY) {
+
+      if (normalizedICAO.startsWith(prefix)) {
+        return country;
+      }
+
+    }
+
+
+    return "";
 
   }
 
