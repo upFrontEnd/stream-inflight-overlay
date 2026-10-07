@@ -1449,12 +1449,12 @@
       }
 
 
-      const releaseId =
-        data?.general?.release;
+      const planTimestamp =
+        data?.params?.time_generated;
 
 
       if (
-        releaseId ===
+        planTimestamp ===
         lastSimBriefReleaseId
       ) {
         return;
@@ -1462,7 +1462,7 @@
 
 
       lastSimBriefReleaseId =
-        releaseId;
+        planTimestamp;
 
 
       setAirports({
