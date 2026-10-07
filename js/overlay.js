@@ -1322,6 +1322,60 @@
 
 
   /* =========================================================
+     AUTO-RELOAD ON NEW DEPLOY
+  ========================================================= */
+
+  /* global __BUILD_TIME__ */
+
+  const CURRENT_BUILD_TIME =
+    typeof __BUILD_TIME__ !== "undefined"
+      ? __BUILD_TIME__
+      : 0;
+
+
+  async function checkForNewDeploy() {
+
+    try {
+
+      const url =
+        new URL(
+          "build-time.json",
+          window.location.href
+        );
+
+      url.searchParams.set(
+        "_",
+        String(Date.now())
+      );
+
+      const response =
+        await fetch(url.toString());
+
+      if (!response.ok) {
+        return;
+      }
+
+      const { t } =
+        await response.json();
+
+      if (t > CURRENT_BUILD_TIME) {
+        window.location.reload();
+      }
+
+    } catch {
+      /* silent */
+    }
+
+  }
+
+
+  setInterval(
+    checkForNewDeploy,
+    60_000
+  );
+
+
+  /* =========================================================
      SIMBRIEF INTEGRATION
   ========================================================= */
 
