@@ -1359,7 +1359,19 @@
         await response.json();
 
       if (t > CURRENT_BUILD_TIME) {
-        window.location.reload();
+
+        const freshUrl =
+          new URL(window.location.href);
+
+        freshUrl.searchParams.set(
+          "_v",
+          String(t)
+        );
+
+        window.location.replace(
+          freshUrl.toString()
+        );
+
       }
 
     } catch {
