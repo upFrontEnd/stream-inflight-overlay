@@ -1,5 +1,7 @@
 "use strict";
 
+import "../scss/style.scss";
+
 (() => {
 
   /* =========================================================
@@ -42,6 +44,9 @@
   const flightPhaseGroup =
     document.querySelector(".info-group--phase");
 
+
+  const callsign =
+    document.querySelector("#callsign");
 
   const latestFollower =
     document.querySelector("#latest-follower");
@@ -1222,6 +1227,23 @@
      PUBLIC API
   ========================================================= */
 
+  function setCallsign(value) {
+
+    const next =
+      String(value ?? "").trim();
+
+    if (!next || !callsign) {
+      return;
+    }
+
+    callsign.textContent = next;
+
+  }
+
+
+  window.setCallsign =
+    setCallsign;
+
   window.setFlightProgress =
     setFlightProgress;
 
@@ -1471,6 +1493,16 @@
         arrival:
           data?.destination?.icao_code
       });
+
+      const airline =
+        String(data?.general?.icao_airline ?? "").trim();
+
+      const flightNum =
+        String(data?.general?.flight_number ?? "").trim();
+
+      if (airline && flightNum) {
+        setCallsign(airline + flightNum);
+      }
 
     } catch {
       /* silent — pas de réseau = pas de mise à jour */

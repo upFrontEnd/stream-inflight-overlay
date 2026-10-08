@@ -16,6 +16,15 @@ function buildTimePlugin() {
 }
 
 export default defineConfig({
+  css: {
+    devSourcemap: true,
+    preprocessorOptions: {
+      scss: {},
+    },
+  },
+  build: {
+    sourcemap: true,
+  },
   define: {
     __BUILD_TIME__: BUILD_TIME,
   },
