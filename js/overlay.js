@@ -54,6 +54,12 @@ import "../scss/style.scss";
   const latestSub =
     document.querySelector("#latest-sub");
 
+  const aircraft =
+    document.querySelector("#aircraft");
+
+  const network =
+    document.querySelector("#network");
+
 
   if (!viewport || !overlay) {
     return;
@@ -345,6 +351,11 @@ import "../scss/style.scss";
   ========================================================= */
 
   let pendingResizeFrame = 0;
+
+  let currentCallsign = "";
+  let depCoords = null;
+  let arrCoords = null;
+  let prevNetworkAltitude = null;
 
 
   const socialAnimationTimers =
@@ -1241,8 +1252,42 @@ import "../scss/style.scss";
   }
 
 
+  function setAircraft(value) {
+
+    const next =
+      String(value ?? "").trim();
+
+    if (!next || !aircraft) {
+      return;
+    }
+
+    aircraft.textContent = next;
+
+  }
+
+
+  function setNetwork(value) {
+
+    const next =
+      String(value ?? "").trim();
+
+    if (!next || !network) {
+      return;
+    }
+
+    network.textContent = next;
+
+  }
+
+
   window.setCallsign =
     setCallsign;
+
+  window.setAircraft =
+    setAircraft;
+
+  window.setNetwork =
+    setNetwork;
 
   window.setFlightProgress =
     setFlightProgress;
@@ -1502,6 +1547,28 @@ import "../scss/style.scss";
 
       if (airline && flightNum) {
         setCallsign(airline + flightNum);
+        currentCallsign = airline + flightNum;
+      }
+
+      const acIcao =
+        String(data?.aircraft?.icao_code ?? "").trim();
+
+      if (acIcao) {
+        setAircraft(acIcao);
+      }
+
+      const dLat = parseFloat(data?.origin?.pos_lat);
+      const dLon = parseFloat(data?.origin?.pos_long);
+
+      if (Number.isFinite(dLat) && Number.isFinite(dLon)) {
+        depCoords = { lat: dLat, lon: dLon };
+      }
+
+      const aLat = parseFloat(data?.destination?.pos_lat);
+      const aLon = parseFloat(data?.destination?.pos_long);
+
+      if (Number.isFinite(aLat) && Number.isFinite(aLon)) {
+        arrCoords = { lat: aLat, lon: aLon };
       }
 
     } catch {
@@ -1523,6 +1590,243 @@ import "../scss/style.scss";
       syncSimBrief,
       SIMBRIEF_POLL_INTERVAL
     );
+
+  }
+
+
+  /* =========================================================
+     NETWORK DETECTION (VATSIM / IVAO)
+  ========================================================= */
+
+  const VATSIM_API =
+    "https://data.vatsim.net/v3/vatsim-data.json";
+
+  const IVAO_API =
+    "https://api.ivao.aero/v2/tracker/whazzup";
+
+  const NETWORK_POLL_INTERVAL =
+    30_000;
+
+
+  function haversineNM(lat1, lon1, lat2, lon2) {
+
+    const toRad = Math.PI / 180;
+    const dLat = (lat2 - lat1) * toRad;
+    const dLon = (lon2 - lon1) * toRad;
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1 * toRad) *
+      Math.cos(lat2 * toRad) *
+      Math.sin(dLon / 2) ** 2;
+
+    return 3440.065 * 2 *
+      Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  }
+
+
+  function inferFlightPhase(altitude, groundspeed) {
+
+    const prev = prevNetworkAltitude;
+    const trend =
+      prev !== null ? altitude - prev : 0;
+
+    prevNetworkAltitude = altitude;
+
+    if (groundspeed < 5) {
+      return "PREFLIGHT";
+    }
+
+    if (groundspeed < 50 && Math.abs(trend) < 100) {
+      return "TAXI";
+    }
+
+    if (trend > 200) {
+      return "CLIMB";
+    }
+
+    if (trend < -200) {
+      return groundspeed < 160
+        ? "APPROACH"
+        : "DESCENT";
+    }
+
+    if (groundspeed > 200) {
+      return "CRUISE";
+    }
+
+    if (trend >= 0 && groundspeed >= 50) {
+      return "TAKEOFF";
+    }
+
+    if (trend <= 0 && groundspeed < 160) {
+      return "LANDING";
+    }
+
+    return "CRUISE";
+
+  }
+
+
+  function applyPilotData(pilot, networkName) {
+
+    setNetwork(networkName);
+
+    const alt =
+      Number(pilot.altitude ?? 0);
+
+    const gs =
+      Number(pilot.groundspeed ?? 0);
+
+    setFlightPhase(
+      inferFlightPhase(alt, gs)
+    );
+
+    const lat = Number(pilot.latitude);
+    const lon = Number(pilot.longitude);
+
+    if (
+      depCoords && arrCoords &&
+      Number.isFinite(lat) &&
+      Number.isFinite(lon)
+    ) {
+
+      const total =
+        haversineNM(
+          depCoords.lat, depCoords.lon,
+          arrCoords.lat, arrCoords.lon
+        );
+
+      if (total > 1) {
+
+        const flown =
+          haversineNM(
+            depCoords.lat, depCoords.lon,
+            lat, lon
+          );
+
+        setFlightProgress(
+          Math.min(100, Math.max(0,
+            (flown / total) * 100
+          ))
+        );
+
+      }
+
+    }
+
+  }
+
+
+  async function findOnVATSIM(cs) {
+
+    try {
+
+      const res =
+        await fetch(VATSIM_API);
+
+      if (!res.ok) {
+        return null;
+      }
+
+      const data = await res.json();
+
+      const pilot =
+        data?.pilots?.find(
+          p => p.callsign === cs
+        );
+
+      if (!pilot) {
+        return null;
+      }
+
+      return {
+        latitude: pilot.latitude,
+        longitude: pilot.longitude,
+        altitude: pilot.altitude,
+        groundspeed: pilot.groundspeed
+      };
+
+    } catch {
+      return null;
+    }
+
+  }
+
+
+  async function findOnIVAO(cs) {
+
+    try {
+
+      const res =
+        await fetch(IVAO_API);
+
+      if (!res.ok) {
+        return null;
+      }
+
+      const data = await res.json();
+
+      const pilot =
+        data?.clients?.pilots?.find(
+          p => p.callsign === cs
+        );
+
+      if (!pilot?.lastTrack) {
+        return null;
+      }
+
+      return {
+        latitude: pilot.lastTrack.latitude,
+        longitude: pilot.lastTrack.longitude,
+        altitude: pilot.lastTrack.altitude,
+        groundspeed: pilot.lastTrack.groundSpeed
+      };
+
+    } catch {
+      return null;
+    }
+
+  }
+
+
+  async function syncNetwork() {
+
+    if (!currentCallsign) {
+      return;
+    }
+
+    const [vatsim, ivao] =
+      await Promise.all([
+        findOnVATSIM(currentCallsign),
+        findOnIVAO(currentCallsign)
+      ]);
+
+    if (vatsim) {
+      applyPilotData(vatsim, "VATSIM");
+      return;
+    }
+
+    if (ivao) {
+      applyPilotData(ivao, "IVAO");
+    }
+
+  }
+
+
+  function startNetworkPolling() {
+
+    setTimeout(() => {
+
+      syncNetwork();
+
+      setInterval(
+        syncNetwork,
+        NETWORK_POLL_INTERVAL
+      );
+
+    }, 5_000);
 
   }
 
@@ -1565,5 +1869,7 @@ import "../scss/style.scss";
   init();
 
   startSimBriefPolling();
+
+  startNetworkPolling();
 
 })();
