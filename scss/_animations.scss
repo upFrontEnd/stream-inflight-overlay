@@ -46,6 +46,87 @@
 
 
 /* =========================================================
+   TOP RAIL — metal sheen
+========================================================= */
+
+@keyframes rail-sheen {
+  0%, 55% {
+    transform: translateX(-150%) skewX(-8deg);
+    opacity: 0;
+  }
+
+  58% {
+    opacity: 1;
+  }
+
+  70%, 100% {
+    transform: translateX(320%) skewX(-8deg);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   INFO TAGS — backlight glow
+========================================================= */
+
+@keyframes tag-backlight {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 25%),
+      inset 0 -2px 0 rgb(0 0 0 / 10%),
+      inset 0 0 0 rgb(74 199 255 / 0%);
+  }
+
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 42%),
+      inset 0 -2px 0 rgb(0 0 0 / 10%),
+      inset 0 0 12px rgb(74 199 255 / 28%);
+  }
+}
+
+
+/* =========================================================
+   INFO DATA — plate shine
+========================================================= */
+
+/* Left groups (callsign, network) — bevel leans left, moves left to right */
+@keyframes data-shine {
+  0%, 58% {
+    transform: translateX(-300%) skewX(23deg);
+    opacity: 0;
+  }
+
+  62% {
+    opacity: 1;
+  }
+
+  95%, 100% {
+    transform: translateX(700%) skewX(23deg);
+    opacity: 0;
+  }
+}
+
+/* Right groups (phase, aircraft) — bevel leans right, moves right to left */
+@keyframes data-shine-r {
+  0%, 58% {
+    transform: translateX(1000%) skewX(-23deg);
+    opacity: 0;
+  }
+
+  62% {
+    opacity: 1;
+  }
+
+  95%, 100% {
+    transform: translateX(-300%) skewX(-23deg);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
    CALLSIGN
 ========================================================= */
 
