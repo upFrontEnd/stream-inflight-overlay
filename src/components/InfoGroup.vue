@@ -9,12 +9,16 @@
         <span class="info-label">{{ label }}</span>
       </div>
       <div class="info-data">
-        <span :id="valueId" class="info-value">{{ value }}</span>
+        <slot name="value">
+          <span :id="valueId" class="info-value">{{ value }}</span>
+        </slot>
       </div>
     </template>
     <template v-else>
       <div class="info-data info-data--right">
-        <span :id="valueId" class="info-value">{{ value }}</span>
+        <slot name="value">
+          <span :id="valueId" class="info-value">{{ value }}</span>
+        </slot>
       </div>
       <div :class="['info-tag', `info-tag--${type}`]">
         <slot name="icon" />

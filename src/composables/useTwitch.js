@@ -34,11 +34,14 @@ async function fetchLatestFollower(broadcasterId, setLatestFollower) {
       `${TWITCH_API}/channels/followers?broadcaster_id=${broadcasterId}&first=1`,
       { headers: headers() },
     );
-    if (!res.ok) return;
+    if (!res.ok) {
+      console.warn(`[Twitch] Follower ${res.status}:`, await res.text());
+      return;
+    }
     const data = await res.json();
     const username = data?.data?.[0]?.user_name;
     if (username) setLatestFollower(username);
-  } catch { /* silent */ }
+  } catch (e) { console.warn("[Twitch] Follower erreur:", e); }
 }
 
 /* ── Subscriber ──────────────────────────────────── */
@@ -58,19 +61,24 @@ async function fetchLatestSub(broadcasterId, setLatestSub) {
       `${TWITCH_API}/subscriptions?broadcaster_id=${broadcasterId}&first=100`,
       { headers: headers() },
     );
-    if (!res.ok) return;
+    if (!res.ok) {
+      console.warn(`[Twitch] Sub ${res.status}:`, await res.text());
+      return;
+    }
     const data = await res.json();
     const subs = data?.data ?? [];
 
     const currentIds = new Set(subs.map((s) => s.user_id));
 
+    const others = subs.filter((s) => s.user_id !== broadcasterId);
+
     if (knownSubIds === null) {
       knownSubIds = currentIds;
-      if (subs[0]) setLatestSub(subs[0].user_name);
+      if (others[0]) setLatestSub(others[0].user_name);
       return;
     }
 
-    for (const sub of subs) {
+    for (const sub of others) {
       if (!knownSubIds.has(sub.user_id)) {
         setLatestSub(sub.user_name);
         break;
@@ -95,7 +103,10 @@ export function useTwitch() {
   }
 
   function startTwitchPolling() {
-    if (!isConfigured()) return;
+    if (!isConfigured()) {
+      console.warn("[Twitch] Non configuré — vérifier VITE_TWITCH_CLIENT_ID, VITE_TWITCH_TOKEN, VITE_TWITCH_BROADCASTER_ID");
+      return;
+    }
     sync();
     setInterval(sync, POLL_INTERVAL);
   }

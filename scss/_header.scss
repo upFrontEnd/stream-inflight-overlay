@@ -205,6 +205,14 @@
   text-overflow: ellipsis;
 }
 
+.network-logo {
+  max-height: 22px;
+  max-width: 90px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .item-icon {
   display: block;
 

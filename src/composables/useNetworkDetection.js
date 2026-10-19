@@ -121,7 +121,11 @@ export function useNetworkDetection() {
       applyPilotData(vatsim, "VATSIM");
       return;
     }
-    if (ivao) applyPilotData(ivao, "IVAO");
+    if (ivao) {
+      applyPilotData(ivao, "IVAO");
+      return;
+    }
+    setNetwork("OFFLINE");
   }
 
   function startNetworkPolling() {

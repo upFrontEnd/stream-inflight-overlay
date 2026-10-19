@@ -50,6 +50,11 @@
             <circle class="wifi-dot" cx="14" cy="23" r="1.8"></circle>
           </svg>
         </template>
+        <template #value>
+          <img v-if="network === 'VATSIM'" :src="vatsimLogo" alt="VATSIM" class="network-logo">
+          <img v-else-if="network === 'IVAO'" :src="ivaoLogo" alt="IVAO" class="network-logo">
+          <span v-else id="network" class="info-value">{{ network }}</span>
+        </template>
       </InfoGroup>
 
       <!-- Phase -->
@@ -155,6 +160,8 @@
 
 <script setup>
 import { onMounted } from "vue";
+import vatsimLogo from "../img/vatsim.png";
+import ivaoLogo from "../img/ivao.png";
 import { useOverlay } from "./composables/useOverlay.js";
 import { useScale } from "./composables/useScale.js";
 import { useSimbrief } from "./composables/useSimbrief.js";
