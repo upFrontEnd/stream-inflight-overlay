@@ -66,6 +66,7 @@ async function fetchLatestSub(broadcasterId, setLatestSub) {
 
     if (knownSubIds === null) {
       knownSubIds = currentIds;
+      if (subs[0]) setLatestSub(subs[0].user_name);
       return;
     }
 
