@@ -8,7 +8,11 @@
     "preview": "bunx --bun vite preview --open",
     "capture:overlay": "bun scripts/capture-overlay.mjs"
   },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
     "playwright": "^1.63.0",
     "sass": "^1.94.0",
     "vite": "^7.2.2"

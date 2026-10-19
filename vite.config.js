@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 const BUILD_TIME = Date.now();
 
@@ -28,5 +29,5 @@ export default defineConfig({
   define: {
     __BUILD_TIME__: BUILD_TIME,
   },
-  plugins: [buildTimePlugin()],
+  plugins: [vue(), buildTimePlugin()],
 });
