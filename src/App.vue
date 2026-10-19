@@ -160,6 +160,7 @@ import { useScale } from "./composables/useScale.js";
 import { useSimbrief } from "./composables/useSimbrief.js";
 import { useNetworkDetection } from "./composables/useNetworkDetection.js";
 import { useBuildTime } from "./composables/useBuildTime.js";
+import { useTwitch } from "./composables/useTwitch.js";
 import InfoGroup from "./components/InfoGroup.vue";
 import AirportModule from "./components/AirportModule.vue";
 import SocialStrip from "./components/SocialStrip.vue";
@@ -182,10 +183,12 @@ const { viewportRef, scale } = useScale();
 const { startSimBriefPolling } = useSimbrief();
 const { startNetworkPolling } = useNetworkDetection();
 const { startBuildTimePolling } = useBuildTime();
+const { startTwitchPolling } = useTwitch();
 
 onMounted(() => {
   startSimBriefPolling();
   startNetworkPolling();
   startBuildTimePolling();
+  startTwitchPolling();
 });
 </script>

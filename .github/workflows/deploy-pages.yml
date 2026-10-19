@@ -34,7 +34,10 @@ jobs:
       - name: Build overlay
         run: bunx --bun vite build --base=/stream-inflight-overlay/
         env:
-          VITE_SIMBRIEF_USERNAME: ${{ secrets.VITE_SIMBRIEF_USERNAME }}
+          VITE_SIMBRIEF_USERNAME:      ${{ secrets.VITE_SIMBRIEF_USERNAME }}
+          VITE_TWITCH_CLIENT_ID:       ${{ secrets.VITE_TWITCH_CLIENT_ID }}
+          VITE_TWITCH_TOKEN:           ${{ secrets.VITE_TWITCH_TOKEN }}
+          VITE_TWITCH_BROADCASTER_ID:  ${{ secrets.VITE_TWITCH_BROADCASTER_ID }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
